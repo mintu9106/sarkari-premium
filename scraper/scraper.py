@@ -47,7 +47,7 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
     """
     Queries Gemini 1.5/2.5 Flash to parse and structure raw job text into JSON.
     """
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
     
     category_note = ""
     if category_hint:
