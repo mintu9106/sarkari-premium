@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f8fafc; /* slate-50 */
+  --foreground: #0f172a; /* slate-900 */
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0; /* slate-200 */
+  --primary: #d97706; /* amber-600 */
+  --primary-hover: #b45309; /* amber-700 */
+  --accent: #2563eb; /* royal blue */
+  --accent-light: #eff6ff;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --ticker-bg: #0f172a;
+  --ticker-text: #f8fafc;
+}
+
+.dark {
+  --background: #090d16; /* deep space blue-black */
+  --foreground: #f1f5f9; /* slate-100 */
+  --card-bg: #111827; /* gray-900 */
+  --border-color: #1f2937; /* gray-800 */
+  --primary: #fbbf24; /* amber-400 */
+  --primary-hover: #f59e0b; /* amber-500 */
+  --accent: #60a5fa; /* sky-400 */
+  --accent-light: #172554;
+  --success: #4ade80;
+  --success-light: #052e16;
+  --danger: #f87171;
+  --danger-light: #450a0a;
+  --ticker-bg: #1e293b;
+  --ticker-text: #f1f5f9;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* Glassmorphism Presets */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
