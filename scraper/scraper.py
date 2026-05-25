@@ -47,7 +47,7 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
     """
     Queries Gemini 1.5/2.5 Flash to parse and structure raw job text into JSON.
     """
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
     
     category_note = ""
     if category_hint:
@@ -192,6 +192,30 @@ def MathRandomId():
     import random
     import string
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=9))
+
+def check_exists_in_supabase(title, supabase_url, service_key):
+    """
+    Checks if a job with a similar title/slug already exists in Supabase.
+    Returns True if exists (should skip), False if new.
+    """
+    slug = make_slug(title)
+    # Search by slug prefix (first 30 chars) to catch similar titles
+    search_slug = slug[:40]
+    query_url = f"{supabase_url}/rest/v1/jobs?slug=ilike.{search_slug}%25&select=slug&limit=1"
+    headers = {
+        "apikey": service_key,
+        "Authorization": f"Bearer {service_key}"
+    }
+    req = urllib.request.Request(query_url, headers=headers, method="GET")
+    try:
+        with urllib.request.urlopen(req, timeout=10) as response:
+            data = json.loads(response.read().decode("utf-8"))
+            if data and len(data) > 0:
+                print(f"  → Already exists in DB (slug: {data[0]['slug']}). Skipping.")
+                return True
+    except Exception as e:
+        print(f"  → Supabase check failed: {e}. Will process anyway.")
+    return False
 
 def upsert_to_supabase(parsed_job, supabase_url, service_key):
     """
@@ -389,6 +413,11 @@ def scrape_job_feed():
                 clean_text = clean_html(raw_text)
 
                 print(f"\nProcessing item: {title}")
+                
+                # Skip if already in database (saves Gemini API quota!)
+                if check_exists_in_supabase(title, supabase_url, service_key):
+                    continue
+                
                 parsed_job = None
                 if gemini_key:
                     parsed_job = query_gemini_to_parse(clean_text, gemini_key, category_hint)
