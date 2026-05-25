@@ -111,21 +111,41 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
         method="POST"
     )
     
-    try:
-        print("Sending raw job text to Gemini API for dynamic structure...")
-        with urllib.request.urlopen(req) as response:
-            res = json.loads(response.read().decode("utf-8"))
-            raw_response = res['candidates'][0]['content']['parts'][0]['text'].strip()
-            
-            if "```json" in raw_response:
-                raw_response = raw_response.split("```json")[1].split("```")[0].strip()
-            elif "```" in raw_response:
-                raw_response = raw_response.split("```")[1].split("```")[0].strip()
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            print(f"Sending raw job text to Gemini API (attempt {attempt + 1}/{max_retries})...")
+            with urllib.request.urlopen(req, timeout=30) as response:
+                res = json.loads(response.read().decode("utf-8"))
+                raw_response = res['candidates'][0]['content']['parts'][0]['text'].strip()
                 
-            return json.loads(raw_response)
-    except Exception as e:
-        print(f"Gemini parsing failed: {e}")
-        return None
+                if "```json" in raw_response:
+                    raw_response = raw_response.split("```json")[1].split("```")[0].strip()
+                elif "```" in raw_response:
+                    raw_response = raw_response.split("```")[1].split("```")[0].strip()
+                    
+                return json.loads(raw_response)
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait_time = 30 * (attempt + 1)  # 30s, 60s, 90s
+                print(f"Rate limited (429). Waiting {wait_time}s before retry...")
+                time.sleep(wait_time)
+                # Rebuild the request object (it gets consumed after first use)
+                req = urllib.request.Request(
+                    url,
+                    data=json.dumps(body).encode("utf-8"),
+                    headers=headers,
+                    method="POST"
+                )
+                continue
+            else:
+                print(f"Gemini API error: {e}")
+                return None
+        except Exception as e:
+            print(f"Gemini parsing failed: {e}")
+            return None
+    print(f"All {max_retries} retries exhausted for Gemini API.")
+    return None
 
 def query_ollama_to_parse(raw_text, category_hint=None):
     """
@@ -291,28 +311,12 @@ def scrape_job_feed():
             "source_name": "Karmasandhan",
             "hint": "Latest Jobs",
             "default_cat": "Central Govt Jobs",
-            "limit": 8
-        },
-        # 6. SarkariResult (Very popular sarkari job portal)
-        {
-            "url": "https://www.sarkariresult.com/feed/",
-            "source_name": "SarkariResult",
-            "hint": "Latest Jobs",
-            "default_cat": "Central Govt Jobs",
             "limit": 5
         },
-        # 7. FreeJobAlert
+        # 6. FreeJobAlert
         {
             "url": "https://www.freejobalert.com/feed/",
             "source_name": "FreeJobAlert",
-            "hint": "Latest Jobs",
-            "default_cat": "Central Govt Jobs",
-            "limit": 5
-        },
-        # 8. EmploymentNews (Official Govt source)
-        {
-            "url": "https://www.employmentnews.gov.in/RSS/XML/EmpNews.xml",
-            "source_name": "EmploymentNews",
             "hint": "Latest Jobs",
             "default_cat": "Central Govt Jobs",
             "limit": 5
@@ -388,9 +392,9 @@ def scrape_job_feed():
                 parsed_job = None
                 if gemini_key:
                     parsed_job = query_gemini_to_parse(clean_text, gemini_key, category_hint)
-                    # Delay to avoid hitting free API rate limits (RPM / TPM)
-                    print("Sleeping 3 seconds to respect Gemini API limits...")
-                    time.sleep(3)
+                    # Longer delay to avoid hitting free API rate limits (15 RPM)
+                    print("Sleeping 12 seconds to respect Gemini API rate limits...")
+                    time.sleep(12)
                 else:
                     parsed_job = query_ollama_to_parse(clean_text, category_hint)
 
