@@ -236,16 +236,22 @@ def scrape_job_feed():
     """
     Fetches the Job RSS feeds, cleans contents, and writes structured posts to Supabase.
     """
+    # Try .env.local first (local dev), then fall back to os.environ (GitHub Actions)
     env = load_env()
-    supabase_url = env.get("SUPABASE_URL") or env.get("NEXT_PUBLIC_SUPABASE_URL")
-    service_key = env.get("SUPABASE_SERVICE_ROLE_KEY") or env.get("NEXT_PUBLIC_SUPABASE_ANON_KEY")
-    gemini_key = env.get("GEMINI_API_KEY")
+    supabase_url = env.get("SUPABASE_URL") or env.get("NEXT_PUBLIC_SUPABASE_URL") or os.environ.get("SUPABASE_URL")
+    service_key = env.get("SUPABASE_SERVICE_ROLE_KEY") or env.get("NEXT_PUBLIC_SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    gemini_key = env.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY")
+
+    print(f"Supabase URL configured: {'Yes' if supabase_url else 'NO!'}")
+    print(f"Service Key configured: {'Yes' if service_key else 'NO!'}")
+    print(f"Gemini API Key configured: {'Yes' if gemini_key else 'NO!'}")
 
     if not supabase_url or not service_key:
         print("Error: Supabase URL and Service key not configured.")
+        print("Checked .env.local file AND os.environ - neither has the credentials.")
         return
 
-    # Define feeds to scrape from multiple popular websites (JobRasta, IndGovtJobs, Karmasandhan)
+    # Define feeds to scrape from multiple popular websites
     feeds = [
         # 1. JobRasta Latest Jobs
         {
@@ -253,7 +259,7 @@ def scrape_job_feed():
             "source_name": "JobRasta Jobs",
             "hint": "Latest Jobs",
             "default_cat": "Central Govt Jobs",
-            "limit": 5
+            "limit": 8
         },
         # 2. JobRasta Admit Cards
         {
@@ -261,7 +267,7 @@ def scrape_job_feed():
             "source_name": "JobRasta Admit Cards",
             "hint": "Admit Cards",
             "default_cat": "Admit Cards",
-            "limit": 3
+            "limit": 5
         },
         # 3. JobRasta Results
         {
@@ -269,7 +275,7 @@ def scrape_job_feed():
             "source_name": "JobRasta Results",
             "hint": "Results",
             "default_cat": "Results",
-            "limit": 3
+            "limit": 5
         },
         # 4. IndGovtJobs (Highly reliable all-India/state jobs portal)
         {
@@ -277,12 +283,36 @@ def scrape_job_feed():
             "source_name": "IndGovtJobs",
             "hint": "Latest Jobs",
             "default_cat": "Central Govt Jobs",
-            "limit": 4
+            "limit": 8
         },
-        # 5. Karmasandhan (Highly requested state/district focused portal)
+        # 5. Karmasandhan (state/district focused portal)
         {
             "url": "https://www.karmasandhan.com/feed/",
             "source_name": "Karmasandhan",
+            "hint": "Latest Jobs",
+            "default_cat": "Central Govt Jobs",
+            "limit": 8
+        },
+        # 6. SarkariResult (Very popular sarkari job portal)
+        {
+            "url": "https://www.sarkariresult.com/feed/",
+            "source_name": "SarkariResult",
+            "hint": "Latest Jobs",
+            "default_cat": "Central Govt Jobs",
+            "limit": 5
+        },
+        # 7. FreeJobAlert
+        {
+            "url": "https://www.freejobalert.com/feed/",
+            "source_name": "FreeJobAlert",
+            "hint": "Latest Jobs",
+            "default_cat": "Central Govt Jobs",
+            "limit": 5
+        },
+        # 8. EmploymentNews (Official Govt source)
+        {
+            "url": "https://www.employmentnews.gov.in/RSS/XML/EmpNews.xml",
+            "source_name": "EmploymentNews",
             "hint": "Latest Jobs",
             "default_cat": "Central Govt Jobs",
             "limit": 5
