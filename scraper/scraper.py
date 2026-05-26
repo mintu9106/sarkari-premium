@@ -247,7 +247,11 @@ def upsert_to_supabase(parsed_job, supabase_url, service_key):
         "apply_link": parsed_job.get("apply_link"),
         "official_pdf_link": parsed_job.get("official_pdf_link"),
         "slug": slug,
-        "meta_title": f"{title} Notification: Apply Online, Dates, Eligibility",
+        "meta_title": (
+            f"{title} Admit Card: Download Link, Exam Schedule" if parsed_job.get("category") == "Admit Cards"
+            else f"{title} Result: Cut-Off Marks, Selection Merit List" if parsed_job.get("category") == "Results"
+            else f"{title} Notification: Apply Online, Dates, Eligibility"
+        ),
         "meta_description": parsed_job.get("overview", "")[:155],
         "content": parsed_job.get("content"),
         "updated_at": datetime.utcnow().isoformat() + "Z"

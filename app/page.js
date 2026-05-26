@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getJobs } from '@/lib/db';
+import { getJobs, getJobUrl } from '@/lib/db';
 import TranslateText from '@/components/TranslateText';
 
 export const revalidate = 60; // Revalidate page every 60 seconds (ISR)
@@ -83,7 +83,7 @@ export default async function Home() {
               latestJobs.map((job) => (
                 <Link 
                   key={job.id} 
-                  href={`/jobs/${job.slug}`}
+                  href={getJobUrl(job.category, job.slug)}
                   className="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all group"
                 >
                   <div className="font-bold text-sm text-gray-900 dark:text-white group-hover:text-amber-500 transition-colors">
@@ -123,7 +123,7 @@ export default async function Home() {
               admitCards.map((job) => (
                 <Link 
                   key={job.id} 
-                  href={`/jobs/${job.slug}`}
+                  href={getJobUrl(job.category, job.slug)}
                   className="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all group"
                 >
                   <div className="font-bold text-sm text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">
@@ -163,7 +163,7 @@ export default async function Home() {
               results.map((job) => (
                 <Link 
                   key={job.id} 
-                  href={`/jobs/${job.slug}`}
+                  href={getJobUrl(job.category, job.slug)}
                   className="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all group"
                 >
                   <div className="font-bold text-sm text-gray-900 dark:text-white group-hover:text-emerald-500 transition-colors">

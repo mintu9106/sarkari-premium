@@ -77,7 +77,13 @@ export default function DistrictJobFilter({ jobs = [], districtName = "" }) {
           filteredJobs.map((job) => (
             <Link 
               key={job.id} 
-              href={`/jobs/${job.slug}`}
+              href={
+                job.category === 'Admit Cards' 
+                  ? `/admit-cards/${job.slug}` 
+                  : job.category === 'Results' 
+                    ? `/results/${job.slug}` 
+                    : `/jobs/${job.slug}`
+              }
               className="block p-6 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all group"
             >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">

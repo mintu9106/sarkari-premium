@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Ticker from "@/components/Ticker";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { getJobs } from "@/lib/db";
+import { getJobs, getJobUrl } from "@/lib/db";
 
 export const metadata = {
   title: {
@@ -21,10 +21,18 @@ export default async function RootLayout({ children }) {
   let tickerUpdates = [];
   try {
     const jobs = await getJobs();
-    tickerUpdates = jobs.slice(0, 8).map(job => ({
-      text: `${job.title} - Apply Online Now!`,
-      url: `/jobs/${job.slug}`
-    }));
+    tickerUpdates = jobs.slice(0, 8).map(job => {
+      let text = `${job.title} - Apply Online Now!`;
+      if (job.category === 'Admit Cards') {
+        text = `${job.title} - Download Admit Card!`;
+      } else if (job.category === 'Results') {
+        text = `${job.title} - Exam Result Declared!`;
+      }
+      return {
+        text,
+        url: getJobUrl(job.category, job.slug)
+      };
+    });
   } catch (e) {
     console.error("Failed to fetch jobs for ticker layout:", e);
   }

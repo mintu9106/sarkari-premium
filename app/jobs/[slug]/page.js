@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getJobs, getJobBySlug } from '@/lib/db';
 import TranslateText from '@/components/TranslateText';
 import { renderMarkdown } from '@/lib/markdown';
@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  // If page needs redirection, don't worry, Next.js handles it, but return meta
   return {
     title: job.meta_title || job.title,
     description: job.meta_description || job.overview.substring(0, 155),
@@ -62,7 +63,15 @@ export default async function JobPage({ params }) {
     notFound();
   }
 
-  const isJob = job.category !== 'Admit Cards' && job.category !== 'Results';
+  // Cross-route redirects to enforce clean SEO links
+  if (job.category === 'Admit Cards') {
+    redirect(`/admit-cards/${job.slug}`);
+  }
+  if (job.category === 'Results') {
+    redirect(`/results/${job.slug}`);
+  }
+
+  const isJob = true; // For /jobs/[slug], it is always a Job now due to redirects above
 
   // Schema.org JobPosting JSON-LD for Google Search Job Cards
   const jsonLd = {

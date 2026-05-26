@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getJobs } from '@/lib/db';
+import { getJobs, getJobUrl } from '@/lib/db';
 
 export const revalidate = 60;
 
@@ -26,7 +26,7 @@ export default async function AdmitCardsPage() {
           filteredJobs.map((job) => (
             <Link 
               key={job.id} 
-              href={`/jobs/${job.slug}`}
+              href={getJobUrl(job.category, job.slug)}
               className="block p-6 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all group"
             >
               <h2 className="font-extrabold text-sm text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">
