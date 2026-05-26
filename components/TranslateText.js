@@ -68,8 +68,17 @@ export default function TranslateText({ text = "", html = false }) {
     );
   }
 
-  if (html) {
-    return <span dangerouslySetInnerHTML={{ __html: translated }} />;
+  // Parse basic bold markdown helper
+  const parseInlineMarkdown = (str) => {
+    if (!str) return "";
+    return str.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-950 dark:text-white">$1</strong>');
+  };
+
+  const hasMarkdown = translated && typeof translated === 'string' && translated.includes('**');
+
+  if (html || hasMarkdown) {
+    const finalContent = html ? translated : parseInlineMarkdown(translated);
+    return <span dangerouslySetInnerHTML={{ __html: finalContent }} />;
   }
 
   return <>{translated}</>;
