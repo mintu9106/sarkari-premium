@@ -146,21 +146,6 @@ export default async function JobPage({ params }) {
         </div>
       </div>
 
-      {/* Featured Social Preview Card */}
-      <div className="rounded-2xl border border-[var(--border-color)] overflow-hidden shadow-sm bg-[var(--card-bg)] max-w-none">
-        <div className="px-6 py-3 border-b border-[var(--border-color)] bg-gray-50 dark:bg-gray-900/40 text-xs font-bold text-gray-500 flex items-center justify-between">
-          <span>⚡ <TranslateText text="Automated SEO Social Sharing Card (Generated Dynamically)" /></span>
-          <span className="text-[10px] text-emerald-500 font-extrabold uppercase tracking-wide">✓ Active</span>
-        </div>
-        <div className="relative aspect-[1200/630] w-full bg-slate-900">
-          <img 
-            src={`/jobs/${job.slug}/opengraph-image`} 
-            alt={job.title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-
       {/* Main Grid Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
@@ -234,9 +219,7 @@ export default async function JobPage({ params }) {
                 <span className="w-1.5 h-6 bg-amber-500 rounded"></span>
                 <TranslateText text="Detailed Notification Tables & Info" />
               </h2>
-              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-                <TranslateText text={renderMarkdown(job.content)} html={true} />
-              </div>
+              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" dangerouslySetInnerHTML={{ __html: renderMarkdown(job.content) }} />
             </section>
           )}
 

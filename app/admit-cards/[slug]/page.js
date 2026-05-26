@@ -114,21 +114,6 @@ export default async function AdmitCardPage({ params }) {
         </div>
       </div>
 
-      {/* Featured Social Preview Card */}
-      <div className="rounded-2xl border border-[var(--border-color)] overflow-hidden shadow-sm bg-[var(--card-bg)] max-w-none">
-        <div className="px-6 py-3 border-b border-[var(--border-color)] bg-gray-50 dark:bg-gray-900/40 text-xs font-bold text-gray-500 flex items-center justify-between">
-          <span>⚡ <TranslateText text="Automated SEO Social Sharing Card (Generated Dynamically)" /></span>
-          <span className="text-[10px] text-emerald-500 font-extrabold uppercase tracking-wide">✓ Active</span>
-        </div>
-        <div className="relative aspect-[1200/630] w-full bg-slate-900">
-          <img 
-            src={`/admit-cards/${job.slug}/opengraph-image`} 
-            alt={job.title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-
       {/* Main Grid Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
@@ -153,7 +138,14 @@ export default async function AdmitCardPage({ params }) {
               <TranslateText text="How to Download Admit Card" />
             </h2>
             <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line bg-gray-50 dark:bg-gray-900/30 p-4 rounded-lg border border-[var(--border-color)]">
-              <TranslateText text={job.how_to_apply || 'Click download link below to access your admit card on the official website.'} />
+              <TranslateText 
+                text={
+                  (job.how_to_apply || 'Click download link below to access your admit card on the official website.')
+                    .replace(/how to apply/gi, 'how to download admit card')
+                    .replace(/आवेदन कैसे करें/g, 'प्रवेश पत्र कैसे डाउनलोड करें')
+                    .replace(/আবেদন করার পদ্ধতি/g, 'প্রবেশপত্র ডাউনলোড করার পদ্ধতি')
+                } 
+              />
             </div>
           </section>
 
@@ -164,9 +156,7 @@ export default async function AdmitCardPage({ params }) {
                 <span className="w-1.5 h-6 bg-blue-500 rounded"></span>
                 <TranslateText text="Detailed Examination Schedules & Info" />
               </h2>
-              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-                <TranslateText text={renderMarkdown(job.content)} html={true} />
-              </div>
+              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" dangerouslySetInnerHTML={{ __html: renderMarkdown(job.content) }} />
             </section>
           )}
 

@@ -88,8 +88,8 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
       "end_date": "YYYY-MM-DD format (or null)",
       "exam_date": "YYYY-MM-DD format (or null)",
       "how_to_apply": "Step-by-step instructions for submitting application, downloading admit card, or checking result",
-      "apply_link": "URL to apply / download / check (or default official portal link)",
-      "official_pdf_link": "URL to official PDF notification / results sheet (or null)",
+      "apply_link": "Direct URL to official government apply / download / check portal (ending in .gov.in, .nic.in, .edu.in, .org, or specific official board domain). NEVER use third-party domains (like jobrasta.com, freejobalert.com, indgovtjobs.in, karmasandhan.com) - if not found, set to null.",
+      "official_pdf_link": "Direct URL to official PDF notification on government servers (or null). NEVER use third-party domains.",
       "content": "Rich markdown content including a table for fees details, a table for important schedules/dates, and vacancy lists."
     }}
     """
@@ -280,6 +280,20 @@ def upsert_to_supabase(parsed_job, supabase_url, service_key):
         print(f"Supabase write failed: {e}")
         return False
 
+def clean_official_link(url):
+    """
+    Strips third-party blog links (like JobRasta, FreeJobAlert) to prevent leakage
+    and only returns official government portal links.
+    """
+    if not url:
+        return None
+    url_str = str(url).strip()
+    bad_domains = ["jobrasta.com", "freejobalert.com", "karmasandhan.com", "indgovtjobs.in"]
+    for domain in bad_domains:
+        if domain in url_str.lower():
+            return None
+    return url_str
+
 def scrape_job_feed():
     """
     Fetches the Job RSS feeds, cleans contents, and writes structured posts to Supabase.
@@ -446,10 +460,16 @@ def scrape_job_feed():
                         else:
                             parsed_job["category"] = default_cat
 
-                    # Add default apply links
+                    # Clean links to filter out any third-party blogs
+                    parsed_job["apply_link"] = clean_official_link(parsed_job.get("apply_link"))
+                    parsed_job["official_pdf_link"] = clean_official_link(parsed_job.get("official_pdf_link"))
+
+                    # Add default apply links only if the feed RSS source link is not a third-party domain
                     if not parsed_job.get("apply_link"):
-                        parsed_job["apply_link"] = link
-                    
+                        cleaned_feed_link = clean_official_link(link)
+                        if cleaned_feed_link:
+                            parsed_job["apply_link"] = cleaned_feed_link
+
                     # Upload directly to Supabase
                     upsert_to_supabase(parsed_job, supabase_url, service_key)
                 else:
