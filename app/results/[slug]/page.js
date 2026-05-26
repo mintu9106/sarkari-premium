@@ -156,7 +156,18 @@ export default async function ResultPage({ params }) {
                 <span className="w-1.5 h-6 bg-emerald-500 rounded"></span>
                 <TranslateText text="Detailed Merit Lists & Cut-Off Marks" />
               </h2>
-              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" dangerouslySetInnerHTML={{ __html: renderMarkdown(job.content) }} />
+              <div 
+                className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" 
+                dangerouslySetInnerHTML={{ 
+                  __html: renderMarkdown(
+                    job.content
+                      .replace(/how to apply/gi, 'how to check result')
+                      .replace(/how to check/gi, 'how to check result')
+                      .replace(/आवेदन कैसे करें/g, 'परिणाम कैसे देखें')
+                      .replace(/आवेदन करने की प्रक्रिया/g, 'परिणाम कैसे देखें')
+                  ) 
+                }} 
+              />
             </section>
           )}
 

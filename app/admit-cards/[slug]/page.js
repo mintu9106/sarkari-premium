@@ -156,7 +156,18 @@ export default async function AdmitCardPage({ params }) {
                 <span className="w-1.5 h-6 bg-blue-500 rounded"></span>
                 <TranslateText text="Detailed Examination Schedules & Info" />
               </h2>
-              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" dangerouslySetInnerHTML={{ __html: renderMarkdown(job.content) }} />
+              <div 
+                className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" 
+                dangerouslySetInnerHTML={{ 
+                  __html: renderMarkdown(
+                    job.content
+                      .replace(/how to apply/gi, 'how to download admit card')
+                      .replace(/how to download/gi, 'how to download admit card')
+                      .replace(/आवेदन कैसे करें/g, 'प्रवेश पत्र कैसे डाउनलोड करें')
+                      .replace(/आवेदन करने की प्रक्रिया/g, 'प्रवेश पत्र कैसे डाउनलोड करें')
+                  ) 
+                }} 
+              />
             </section>
           )}
 
