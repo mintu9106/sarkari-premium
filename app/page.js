@@ -23,6 +23,104 @@ export default async function Home() {
     (job) => job.category === 'Results'
   ).slice(0, 15);
 
+  // Extract and format upcoming important dates for timeline calendar tracker
+  const timelineEvents = [];
+  jobs.forEach(job => {
+    if (job.important_dates) {
+      const dates = job.important_dates;
+      // Event: Application Starts
+      if (dates.start_date && job.category !== 'Admit Cards' && job.category !== 'Results') {
+        timelineEvents.push({
+          jobTitle: job.title,
+          category: job.category,
+          slug: job.slug,
+          eventName: "Application Starts",
+          dateStr: dates.start_date,
+          type: "start"
+        });
+      }
+      // Event: Last Date to Apply
+      if (dates.end_date && job.category !== 'Admit Cards' && job.category !== 'Results') {
+        timelineEvents.push({
+          jobTitle: job.title,
+          category: job.category,
+          slug: job.slug,
+          eventName: "Last Date to Apply",
+          dateStr: dates.end_date,
+          type: "end"
+        });
+      }
+      // Event: Admit Card Release
+      if (dates.start_date && job.category === 'Admit Cards') {
+        timelineEvents.push({
+          jobTitle: job.title,
+          category: job.category,
+          slug: job.slug,
+          eventName: "Admit Card Release",
+          dateStr: dates.start_date,
+          type: "admit"
+        });
+      }
+      // Event: Result Declared
+      if (dates.start_date && job.category === 'Results') {
+        timelineEvents.push({
+          jobTitle: job.title,
+          category: job.category,
+          slug: job.slug,
+          eventName: "Result Declared",
+          dateStr: dates.start_date,
+          type: "result"
+        });
+      }
+      // Event: Exam Date
+      if (dates.exam_date) {
+        timelineEvents.push({
+          jobTitle: job.title,
+          category: job.category,
+          slug: job.slug,
+          eventName: "Exam Date",
+          dateStr: dates.exam_date,
+          type: "exam"
+        });
+      }
+    }
+  });
+
+  // Sort dates chronologically closest to today (excluding dates older than 3 months)
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+  const cutoffDateStr = threeMonthsAgo.toISOString().split('T')[0];
+
+  const sortedEvents = timelineEvents
+    .filter(e => e.dateStr && e.dateStr >= cutoffDateStr)
+    .sort((a, b) => new Date(a.dateStr) - new Date(b.dateStr))
+    .slice(0, 8); // Top 8 events
+
+  const formatDate = (dateStr) => {
+    try {
+      const date = new Date(dateStr);
+      const day = date.getDate();
+      const month = date.toLocaleString('en-US', { month: 'short' });
+      return { day, month, year: date.getFullYear() };
+    } catch (e) {
+      return { day: '?', month: '?', year: '' };
+    }
+  };
+
+  const getDaysRemainingText = (dateStr) => {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const target = new Date(dateStr);
+    target.setHours(0,0,0,0);
+    const diffTime = target - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Tomorrow";
+    if (diffDays > 1) return `In ${diffDays} days`;
+    return "Ended";
+  };
+
   return (
     <div className="space-y-12">
       {/* Hero / Quick Search Banner */}
@@ -59,6 +157,79 @@ export default async function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Exam Calendar & Important Dates Timeline Tracker */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
+          <h2 className="text-lg font-black tracking-tight text-gray-900 dark:text-white flex items-center gap-2">
+            <span className="w-1.5 h-6 bg-red-500 rounded"></span>
+            <TranslateText text="Important Dates & Exam Calendar Tracker" />
+          </h2>
+          <span className="text-[10px] bg-red-100 dark:bg-red-950/20 text-red-600 dark:text-red-400 font-bold px-2 py-0.5 rounded uppercase tracking-wider flex items-center gap-1 select-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+            <TranslateText text="Live Schedule" />
+          </span>
+        </div>
+
+        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800 select-none">
+          {sortedEvents.length > 0 ? (
+            sortedEvents.map((evt, idx) => {
+              const dateInfo = formatDate(evt.dateStr);
+              const daysText = getDaysRemainingText(evt.dateStr);
+              const isPast = daysText === "Ended";
+              
+              const typeConfig = {
+                start: { bg: 'bg-amber-500', badge: 'bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400' },
+                end: { bg: 'bg-red-500', badge: 'bg-red-50 dark:bg-red-950/20 text-red-650 dark:text-red-400' },
+                admit: { bg: 'bg-blue-500', badge: 'bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400' },
+                result: { bg: 'bg-emerald-500', badge: 'bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-450' },
+                exam: { bg: 'bg-purple-500', badge: 'bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400' }
+              }[evt.type] || { bg: 'bg-gray-500', badge: 'bg-gray-50 dark:bg-gray-850 text-gray-600' };
+
+              return (
+                <div 
+                  key={idx}
+                  className="flex-shrink-0 w-72 bg-[var(--card-bg)] border border-[var(--border-color)] hover:border-gray-300 dark:hover:border-gray-700 rounded-xl p-4 flex gap-4 transition-all duration-300 shadow-sm hover:shadow"
+                >
+                  {/* Calendar Sheet Icon */}
+                  <div className="flex-shrink-0 w-14 h-16 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 flex flex-col text-center">
+                    <div className={`${typeConfig.bg} text-white text-[9px] py-0.5 font-bold uppercase tracking-wider`}>
+                      {dateInfo.month}
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-900 flex-1 flex items-center justify-center font-black text-xl text-gray-800 dark:text-gray-200">
+                      {dateInfo.day}
+                    </div>
+                  </div>
+
+                  {/* Event Details */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-1.5 justify-between">
+                        <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-[3px] uppercase tracking-wider ${typeConfig.badge}`}>
+                          <TranslateText text={evt.eventName} />
+                        </span>
+                        <span className={`text-[8px] font-extrabold ${isPast ? 'text-gray-400' : 'text-emerald-500'}`}>
+                          <TranslateText text={daysText} />
+                        </span>
+                      </div>
+                      <Link 
+                        href={getJobUrl(evt.category, evt.slug)}
+                        className="block mt-1.5 font-bold text-xs text-gray-900 dark:text-white hover:text-amber-500 transition-colors line-clamp-2"
+                      >
+                        <TranslateText text={evt.jobTitle} />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="w-full text-center py-6 text-sm text-gray-500">
+              <TranslateText text="No upcoming schedule events." />
+            </div>
+          )}
         </div>
       </section>
 
