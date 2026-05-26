@@ -2,7 +2,7 @@ name: Sarkari Premium Job Scraper Pipeline
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Runs automatically every 6 hours
+    - cron: '*/30 * * * *' # Runs automatically every 30 minutes
   workflow_dispatch: # Allows manual click trigger from GitHub UI
 
 jobs:

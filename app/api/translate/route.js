@@ -84,7 +84,11 @@ const mockDict = {
     "Declared": "घोषित",
     "Released": "जारी",
     "State PCS & Jobs Updates": "राज्य पीसीएस और नौकरी अपडेट",
-    "Latest Updates": "नवीनतम अपडेट"
+    "Latest Updates": "नवीनतम अपडेट",
+    "Download Admit Card Link": "प्रवेश पत्र डाउनलोड लिंक",
+    "Check Result Link": "परिणाम चेक लिंक",
+    "Admit Card Release Date": "प्रवेश पत्र जारी होने की तिथि",
+    "Result Declaration Date": "परिणाम घोषित होने की तिथि"
   },
   bn: {
     "Job Overview": "চাকরির বিবরণ",
@@ -109,7 +113,11 @@ const mockDict = {
     "Declared": "ঘোষিত",
     "Released": "প্রকাশিত",
     "State PCS & Jobs Updates": "রাজ্য পিসিএস এবং চাকরি আপডেট",
-    "Latest Updates": "সাম্প্রতিক আপডেট"
+    "Latest Updates": "সাম্প্রতিক আপডেট",
+    "Download Admit Card Link": "প্রবেশপত্র ডাউনলোড লিঙ্ক",
+    "Check Result Link": "ফলাফল চেক লিঙ্ক",
+    "Admit Card Release Date": "প্রবেশপত্র প্রকাশের তারিখ",
+    "Result Declaration Date": "ফলাফল ঘোষণার তারিখ"
   }
 };
 

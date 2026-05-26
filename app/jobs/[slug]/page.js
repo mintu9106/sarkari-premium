@@ -62,6 +62,8 @@ export default async function JobPage({ params }) {
     notFound();
   }
 
+  const isJob = job.category !== 'Admit Cards' && job.category !== 'Results';
+
   // Schema.org JobPosting JSON-LD for Google Search Job Cards
   const jsonLd = {
     "@context": "https://schema.org",
@@ -167,39 +169,43 @@ export default async function JobPage({ params }) {
             </p>
           </section>
 
-          {/* Eligibility Criteria */}
-          <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
-            <h2 className="text-lg font-black border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-amber-500 rounded"></span>
-              <TranslateText text="Eligibility & Qualification" />
-            </h2>
-            <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line">
-              <TranslateText text={renderTextOrList(job.eligibility)} />
-            </p>
-          </section>
-
-          {/* Age Limit & Salary */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Eligibility Criteria (Only for Jobs) */}
+          {isJob && (
             <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
               <h2 className="text-lg font-black border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-amber-500 rounded"></span>
-                <TranslateText text="Age Limit" />
+                <TranslateText text="Eligibility & Qualification" />
               </h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300 font-medium whitespace-pre-line">
-                <TranslateText text={renderTextOrList(job.age_limit)} />
+              <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                <TranslateText text={renderTextOrList(job.eligibility)} />
               </p>
             </section>
+          )}
 
-            <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
-              <h2 className="text-lg font-black border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-amber-500 rounded"></span>
-                <TranslateText text="Salary & Pay Scale" />
-              </h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300 font-medium whitespace-pre-line">
-                <TranslateText text={renderTextOrList(job.salary)} />
-              </p>
-            </section>
-          </div>
+          {/* Age Limit & Salary (Only for Jobs) */}
+          {isJob && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
+                <h2 className="text-lg font-black border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
+                  <span className="w-1.5 h-6 bg-amber-500 rounded"></span>
+                  <TranslateText text="Age Limit" />
+                </h2>
+                <p className="text-sm text-gray-700 dark:text-gray-300 font-medium whitespace-pre-line">
+                  <TranslateText text={renderTextOrList(job.age_limit)} />
+                </p>
+              </section>
+
+              <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
+                <h2 className="text-lg font-black border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
+                  <span className="w-1.5 h-6 bg-amber-500 rounded"></span>
+                  <TranslateText text="Salary & Pay Scale" />
+                </h2>
+                <p className="text-sm text-gray-700 dark:text-gray-300 font-medium whitespace-pre-line">
+                  <TranslateText text={renderTextOrList(job.salary)} />
+                </p>
+              </section>
+            </div>
+          )}
 
           {/* How to Apply Guide */}
           <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
@@ -237,18 +243,40 @@ export default async function JobPage({ params }) {
             </h3>
             <table className="w-full text-xs text-left border-collapse">
               <tbody>
-                <tr className="border-b border-[var(--border-color)]">
-                  <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Apply Start Date" /></td>
-                  <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.start_date || 'N/A'}</td>
-                </tr>
-                <tr className="border-b border-[var(--border-color)]">
-                  <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Last Date to Apply" /></td>
-                  <td className="py-2.5 text-right font-semibold text-red-600 dark:text-red-400">{job.important_dates?.end_date || 'N/A'}</td>
-                </tr>
-                <tr>
-                  <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Exam Date" /></td>
-                  <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.exam_date || 'TBA'}</td>
-                </tr>
+                {isJob ? (
+                  <>
+                    <tr className="border-b border-[var(--border-color)]">
+                      <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Apply Start Date" /></td>
+                      <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.start_date || 'N/A'}</td>
+                    </tr>
+                    <tr className="border-b border-[var(--border-color)]">
+                      <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Last Date to Apply" /></td>
+                      <td className="py-2.5 text-right font-semibold text-red-600 dark:text-red-400">{job.important_dates?.end_date || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Exam Date" /></td>
+                      <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.exam_date || 'TBA'}</td>
+                    </tr>
+                  </>
+                ) : job.category === 'Admit Cards' ? (
+                  <>
+                    <tr className="border-b border-[var(--border-color)]">
+                      <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Admit Card Release Date" /></td>
+                      <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.start_date || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Exam Date" /></td>
+                      <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.exam_date || 'TBA'}</td>
+                    </tr>
+                  </>
+                ) : (
+                  <>
+                    <tr className="border-b border-[var(--border-color)]">
+                      <td className="py-2.5 font-bold text-gray-500 dark:text-gray-400"><TranslateText text="Result Declaration Date" /></td>
+                      <td className="py-2.5 text-right font-semibold text-gray-900 dark:text-white">{job.important_dates?.start_date || 'N/A'}</td>
+                    </tr>
+                  </>
+                )}
               </tbody>
             </table>
           </section>
@@ -269,7 +297,15 @@ export default async function JobPage({ params }) {
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
-                  <TranslateText text="Apply Online Link" />
+                  <TranslateText 
+                    text={
+                      job.category === 'Admit Cards' 
+                        ? "Download Admit Card Link" 
+                        : job.category === 'Results' 
+                          ? "Check Result Link" 
+                          : "Apply Online Link"
+                    } 
+                  />
                 </a>
               )}
               {job.official_pdf_link && (
