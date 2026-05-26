@@ -121,7 +121,28 @@ export async function POST(req) {
       return NextResponse.json({ translatedText: text });
     }
 
-    // 1. Try Gemini if API key is provided
+    // 1. Check dictionary first (fastest and saves API quota)
+    const dict = mockDict[targetLang];
+    if (dict && dict[text]) {
+      return NextResponse.json({ translatedText: dict[text] });
+    }
+
+    // 2. Try Free Google Translate API (fast, reliable, no API key, high limits)
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        const translatedText = data[0].map(x => x[0]).join('');
+        if (translatedText) {
+          return NextResponse.json({ translatedText });
+        }
+      }
+    } catch (e) {
+      console.error("Free Google Translate API failed, falling back:", e.message);
+    }
+
+    // 3. Fallback: Try Gemini if API key is provided and Google Translate failed
     if (GEMINI_API_KEY) {
       try {
         console.log("Translating via Gemini API...");
@@ -132,7 +153,7 @@ export async function POST(req) {
       }
     }
 
-    // 2. Try Local Ollama if available
+    // 4. Try Local Ollama if available
     try {
       console.log("Translating via local Ollama...");
       const result = await translateWithOllama(text, targetLang);
@@ -141,13 +162,7 @@ export async function POST(req) {
       // Local Ollama is either not running or not reachable (normal in production)
     }
 
-    // 3. Fallback to dictionary match or return original
-    const dict = mockDict[targetLang];
-    if (dict && dict[text]) {
-      return NextResponse.json({ translatedText: dict[text] });
-    }
-
-    // Simple default notice
+    // Default fallback to original text
     return NextResponse.json({ 
       translatedText: text 
     });
