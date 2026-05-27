@@ -54,6 +54,8 @@ export default async function AdmitCardPage({ params }) {
   if (job.category !== 'Admit Cards') {
     if (job.category === 'Results') {
       redirect(`/results/${job.slug}`);
+    } else if (job.category === 'Govt Schemes') {
+      redirect(`/gov-schemes/${job.slug}`);
     } else {
       redirect(`/jobs/${job.slug}`);
     }

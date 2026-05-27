@@ -79,10 +79,6 @@ export default function Header() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-4">
-            <Link href="/" className="px-3 py-2 rounded-md text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 transition-all">
-              Home
-            </Link>
-            
             <Link href="/central-jobs" className="px-3 py-2 rounded-md text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 transition-all">
               Central Jobs
             </Link>
@@ -115,33 +111,9 @@ export default function Header() {
               )}
             </div>
 
-            {/* District-wise Jobs Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown('district')}
-                className="px-3 py-2 rounded-md text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 transition-all flex items-center gap-1 cursor-pointer"
-              >
-                Districts
-                <svg className={`w-4 h-4 transition-transform ${activeDropdown === 'district' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {activeDropdown === 'district' && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 py-1 z-50">
-                  {districts.map((dist) => (
-                    <Link
-                      key={dist}
-                      href={`/district-jobs/${dist.toLowerCase()}`}
-                      onClick={() => setActiveDropdown(null)}
-                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-amber-950/20 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
-                    >
-                      {dist}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Link href="/gov-schemes" className="px-3 py-2 rounded-md text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 transition-all">
+              Govt Schemes
+            </Link>
 
             <Link href="/admit-cards" className="px-3 py-2 rounded-md text-sm font-bold text-gray-700 dark:text-gray-200 hover:text-amber-600 dark:hover:text-amber-400 transition-all">
               Admit Cards
@@ -241,9 +213,6 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-2 pt-2 pb-4 space-y-1 shadow-inner">
-          <Link href="/" className="block px-3 py-2 rounded-md text-base font-bold text-gray-700 dark:text-gray-200 hover:bg-amber-50 dark:hover:bg-amber-950/20" onClick={() => setMobileMenuOpen(false)}>
-            Home
-          </Link>
           <Link href="/central-jobs" className="block px-3 py-2 rounded-md text-base font-bold text-gray-700 dark:text-gray-200 hover:bg-amber-50 dark:hover:bg-amber-950/20" onClick={() => setMobileMenuOpen(false)}>
             Central Jobs
           </Link>
@@ -260,6 +229,9 @@ export default function Header() {
               </Link>
             ))}
           </div>
+          <Link href="/gov-schemes" className="block px-3 py-2 rounded-md text-base font-bold text-gray-700 dark:text-gray-200 hover:bg-amber-50 dark:hover:bg-amber-950/20" onClick={() => setMobileMenuOpen(false)}>
+            Govt Schemes
+          </Link>
           <Link href="/admit-cards" className="block px-3 py-2 rounded-md text-base font-bold text-gray-700 dark:text-gray-200 hover:bg-amber-50 dark:hover:bg-amber-950/20" onClick={() => setMobileMenuOpen(false)}>
             Admit Cards
           </Link>

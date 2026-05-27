@@ -21,7 +21,7 @@ export default function Footer() {
             <h3 className="text-gray-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Categories</h3>
             <ul className="space-y-2 text-xs">
               <li><Link href="/central-jobs" className="hover:text-amber-500 transition-colors">Central Govt Jobs</Link></li>
-              <li><Link href="/state-jobs/uttar-pradesh" className="hover:text-amber-500 transition-colors">UP Govt Jobs</Link></li>
+              <li><Link href="/gov-schemes" className="hover:text-amber-500 transition-colors">Govt Schemes</Link></li>
               <li><Link href="/admit-cards" className="hover:text-amber-500 transition-colors">Admit Cards</Link></li>
               <li><Link href="/results" className="hover:text-amber-500 transition-colors">Latest Results</Link></li>
             </ul>

@@ -71,6 +71,9 @@ export default async function JobPage({ params }) {
   if (job.category === 'Results') {
     redirect(`/results/${job.slug}`);
   }
+  if (job.category === 'Govt Schemes') {
+    redirect(`/gov-schemes/${job.slug}`);
+  }
 
   const isJob = true; // For /jobs/[slug], it is always a Job now due to redirects above
 
