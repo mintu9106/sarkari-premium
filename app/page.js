@@ -26,6 +26,8 @@ export default async function Home() {
   // Extract and format upcoming important dates for timeline calendar tracker
   const timelineEvents = [];
   jobs.forEach(job => {
+    // Skip Govt Schemes — calendar tracker is only for Jobs, Admit Cards & Results
+    if (job.category === 'Govt Schemes') return;
     if (job.important_dates) {
       const dates = job.important_dates;
       // Event: Application Starts
