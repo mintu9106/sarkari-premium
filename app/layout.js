@@ -2,6 +2,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Ticker from "@/components/Ticker";
+import ScreenReader from "@/components/ScreenReader";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { getJobs, getJobUrl } from "@/lib/db";
 
@@ -67,6 +68,7 @@ export default async function RootLayout({ children }) {
             {children}
           </main>
           <Footer />
+          <ScreenReader />
         </LanguageProvider>
       </body>
     </html>
