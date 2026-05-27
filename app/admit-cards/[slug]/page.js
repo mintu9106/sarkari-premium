@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { getJobs, getJobBySlug } from '@/lib/db';
 import TranslateText from '@/components/TranslateText';
-import { renderMarkdown } from '@/lib/markdown';
+import { renderMarkdown, stripSections } from '@/lib/markdown';
 import JobShareButtons from '@/components/JobShareButtons';
 
 export const revalidate = 60; // ISR validation rate
@@ -131,24 +131,6 @@ export default async function AdmitCardPage({ params }) {
             </p>
           </section>
 
-          {/* How to Download Guide */}
-          <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
-            <h2 className="text-lg font-black border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-blue-500 rounded"></span>
-              <TranslateText text="How to Download Admit Card" />
-            </h2>
-            <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line bg-gray-50 dark:bg-gray-900/30 p-4 rounded-lg border border-[var(--border-color)]">
-              <TranslateText 
-                text={
-                  (job.how_to_apply || 'Click download link below to access your admit card on the official website.')
-                    .replace(/how to apply/gi, 'how to download admit card')
-                    .replace(/आवेदन कैसे करें/g, 'प्रवेश पत्र कैसे डाउनलोड करें')
-                    .replace(/আবেদন করার পদ্ধতি/g, 'প্রবেশপত্র ডাউনলোড করার পদ্ধতি')
-                } 
-              />
-            </div>
-          </section>
-
           {/* Detailed Vacancy & Tables */}
           {job.content && (
             <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
@@ -160,11 +142,7 @@ export default async function AdmitCardPage({ params }) {
                 className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" 
                 dangerouslySetInnerHTML={{ 
                   __html: renderMarkdown(
-                    job.content
-                      .replace(/how to apply/gi, 'how to download admit card')
-                      .replace(/how to download/gi, 'how to download admit card')
-                      .replace(/आवेदन कैसे करें/g, 'प्रवेश पत्र कैसे डाउनलोड करें')
-                      .replace(/आवेदन करने की प्रक्रिया/g, 'प्रवेश पत्र कैसे डाउनलोड करें')
+                    stripSections(job.content, ['fee', 'age', 'apply', 'eligibility', 'qualification', 'salary', 'pay'])
                   ) 
                 }} 
               />
