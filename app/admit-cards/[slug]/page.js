@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { getJobs, getJobBySlug } from '@/lib/db';
 import TranslateText from '@/components/TranslateText';
+import TranslateMarkdown from '@/components/TranslateMarkdown';
 import { renderMarkdown, stripSections } from '@/lib/markdown';
 import JobShareButtons from '@/components/JobShareButtons';
 
@@ -138,14 +139,13 @@ export default async function AdmitCardPage({ params }) {
                 <span className="w-1.5 h-6 bg-blue-500 rounded"></span>
                 <TranslateText text="Detailed Examination Schedules & Info" />
               </h2>
-              <div 
-                className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content" 
-                dangerouslySetInnerHTML={{ 
-                  __html: renderMarkdown(
+              <div className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 markdown-content notranslate" translate="no">
+                <TranslateMarkdown 
+                  html={renderMarkdown(
                     stripSections(job.content, ['fee', 'age', 'apply', 'eligibility', 'qualification', 'salary', 'pay'])
-                  ) 
-                }} 
-              />
+                  )} 
+                />
+              </div>
             </section>
           )}
 

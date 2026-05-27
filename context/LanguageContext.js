@@ -14,6 +14,12 @@ export function LanguageProvider({ children }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('lang', language);
+    }
+  }, [language]);
+
   const changeLanguage = (lang) => {
     setLanguage(lang);
     localStorage.setItem('language', lang);

@@ -16,6 +16,12 @@ export default function TranslateText({ text = "", html = false }) {
       return;
     }
 
+    // If text has no translatable alphabetic characters (like dates, numbers, punctuation), bypass
+    if (text && typeof text === 'string' && !/[a-zA-Z]/.test(text)) {
+      setTranslated(text);
+      return;
+    }
+
     // Check if we have cached translation for this language
     if (cache.current[language]) {
       setTranslated(cache.current[language]);
