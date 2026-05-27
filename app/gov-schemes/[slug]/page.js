@@ -4,6 +4,7 @@ import TranslateText from '@/components/TranslateText';
 import TranslateMarkdown from '@/components/TranslateMarkdown';
 import { renderMarkdown } from '@/lib/markdown';
 import JobShareButtons from '@/components/JobShareButtons';
+import QuickLinks from '@/components/QuickLinks';
 
 export const revalidate = 60; // ISR validation rate
 
@@ -217,41 +218,11 @@ export default async function GovSchemePage({ params }) {
           </section>
 
           {/* Quick Links */}
-          <section className="bg-[var(--card-bg)] rounded-xl p-6 border border-[var(--border-color)] space-y-4">
-            <h3 className="font-extrabold text-sm uppercase tracking-wider text-gray-900 dark:text-white pb-2 border-b border-[var(--border-color)]">
-              <TranslateText text="Official Scheme Links" />
-            </h3>
-            <div className="flex flex-col gap-3">
-              {job.apply_link && (
-                <a
-                  href={job.apply_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-full py-2.5 px-4 text-white text-center font-bold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm ${
-                    job.state ? 'bg-violet-600 hover:bg-violet-700' : 'bg-indigo-600 hover:bg-indigo-700'
-                  }`}
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  <TranslateText text="Apply Online Link" />
-                </a>
-              )}
-              {job.official_pdf_link && (
-                <a
-                  href={job.official_pdf_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white text-center font-bold text-sm rounded-lg border border-[var(--border-color)] transition-colors flex items-center justify-center gap-2"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <TranslateText text="Download Official PDF" />
-                </a>
-              )}
-            </div>
-          </section>
+          <QuickLinks 
+            applyLink={job.apply_link} 
+            officialPdfLink={job.official_pdf_link} 
+            isState={!!job.state} 
+          />
 
           {/* Share Buttons */}
           <JobShareButtons title={job.title} slug={job.slug} />
