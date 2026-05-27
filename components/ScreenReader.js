@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function ScreenReader() {
+  const pathname = usePathname();
   const { language } = useLanguage();
   const [supported, setSupported] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -78,14 +80,30 @@ export default function ScreenReader() {
 
     const targetLocales = localeMap[lang] || ['en-US'];
     
-    // Find first voice that matches target locales
-    for (const locale of targetLocales) {
-      const voice = voices.find(v => v.lang.toLowerCase().replace('_', '-').includes(locale.toLowerCase()));
-      if (voice) return voice;
+    // Gather all voices matching target locales
+    const matchedVoices = voices.filter(v => 
+      targetLocales.some(locale => v.lang.toLowerCase().replace('_', '-').includes(locale.toLowerCase()))
+    );
+
+    // Fallback to any voice starting with the language prefix
+    if (matchedVoices.length === 0) {
+      const prefixVoices = voices.filter(v => v.lang.toLowerCase().startsWith(lang));
+      if (prefixVoices.length > 0) matchedVoices.push(...prefixVoices);
     }
-    
-    // Fallback to any voice matching lang prefix
-    return voices.find(v => v.lang.toLowerCase().startsWith(lang)) || null;
+
+    if (matchedVoices.length === 0) return null;
+
+    // Prioritize natural sounding human-like voices:
+    // 1. Check for "Natural" (Microsoft Online Natural voices)
+    const naturalVoice = matchedVoices.find(v => v.name.toLowerCase().includes('natural'));
+    if (naturalVoice) return naturalVoice;
+
+    // 2. Check for "Google" (Google Chrome Cloud/Mobile voices)
+    const googleVoice = matchedVoices.find(v => v.name.toLowerCase().includes('google'));
+    if (googleVoice) return googleVoice;
+
+    // 3. Fallback to default/first voice of that language
+    return matchedVoices[0];
   };
 
   const speakNextBlock = () => {
@@ -187,7 +205,14 @@ export default function ScreenReader() {
     }
   };
 
-  if (!supported) return null;
+  // Only show screen reader button on detail pages: /jobs/[slug], /admit-cards/[slug], /results/[slug], /gov-schemes/[slug]
+  const isDetailPage = () => {
+    if (!pathname) return false;
+    const segments = pathname.split('/').filter(Boolean);
+    return segments.length === 2 && ['jobs', 'admit-cards', 'results', 'gov-schemes'].includes(segments[0]);
+  };
+
+  if (!supported || !isDetailPage()) return null;
 
   return (
     <>
