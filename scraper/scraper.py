@@ -57,7 +57,12 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
     You are an expert government exams portal content writer, SEO specialist, and editor.
     Convert the following raw government exam / job alert text into a highly structured JSON object.
     Ensure the overview is written in a professional, engaging, yet natural human-like tone.
-    Generate a detailed markdown content block in the 'content' field detailing the Application Fee table, schedules/timelines table, and post qualifications.
+    Generate a detailed markdown content block in the 'content' field.
+    
+    RULES FOR CONTENT GENERATION BASED ON CATEGORY:
+    1. If the category is 'Central Govt Jobs', 'State-wise Jobs', or 'District-wise Jobs', include an Application Fee table, exam schedules/timelines table, post qualifications, age limits, and step-by-step how to apply instructions.
+    2. If the category is 'Admit Cards' or 'Results', DO NOT include any Application Fee details, Age Limit details, or How to Apply sections/headings in the markdown. Focus exclusively on exam day guidelines, timelines/schedules, verification documents, and cut-off or download updates.
+
     {category_note}
 
     CRITICAL RULES FOR STATE & DISTRICT EXTRACTION:
