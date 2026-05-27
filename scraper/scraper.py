@@ -45,9 +45,9 @@ def clean_html(raw_html):
 
 def query_gemini_to_parse(raw_text, api_key, category_hint=None):
     """
-    Queries Gemini 1.5/2.5 Flash to parse and structure raw job text into JSON.
+    Queries Gemini Flash to parse and structure raw job text into JSON.
     """
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
     
     category_note = ""
     if category_hint:
@@ -126,9 +126,14 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
                     
                 return json.loads(raw_response)
         except urllib.error.HTTPError as e:
+            try:
+                err_body = e.read().decode("utf-8")
+                print(f"HTTP Error {e.code}: {e.reason}\nResponse Body: {err_body}")
+            except Exception as read_err:
+                print(f"HTTP Error {e.code}: {e.reason} (Failed to read body: {read_err})")
             if e.code == 429:
                 wait_time = 30 * (attempt + 1)  # 30s, 60s, 90s
-                print(f"Rate limited (429). Waiting {wait_time}s before retry...")
+                print(f"Waiting {wait_time}s before retry...")
                 time.sleep(wait_time)
                 # Rebuild the request object (it gets consumed after first use)
                 req = urllib.request.Request(
@@ -139,7 +144,6 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
                 )
                 continue
             else:
-                print(f"Gemini API error: {e}")
                 return None
         except Exception as e:
             print(f"Gemini parsing failed: {e}")
