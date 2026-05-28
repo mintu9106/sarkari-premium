@@ -253,6 +253,94 @@ def query_groq_to_parse(raw_text, api_key, category_hint=None):
         print(f"Groq parsing failed: {e}")
         return None
 
+def query_deepseek_to_parse(raw_text, api_key, category_hint=None):
+    """
+    Queries DeepSeek-V3 model to parse raw text (OpenAI-compatible endpoint).
+    """
+    url = "https://api.deepseek.com/v1/chat/completions"
+    
+    category_note = ""
+    if category_hint:
+        category_note = f"\nNote: The source content comes from the '{category_hint}' category feed. If 'Latest Jobs', classify 'category' as one of 'Central Govt Jobs', 'State-wise Jobs', or 'District-wise Jobs'. If 'Admit Cards', classify as 'Admit Cards'. If 'Results', classify as 'Results'."
+
+    prompt = f"""
+    You are an expert government exams portal content writer, SEO specialist, and editor.
+    Convert the following raw government exam / job alert text into a highly structured JSON object.
+    Ensure the overview is written in a professional, engaging, yet natural human-like tone.
+    Generate a detailed markdown content block in the 'content' field.
+    
+    RULES FOR CONTENT GENERATION BASED ON CATEGORY:
+    1. If the category is 'Central Govt Jobs', 'State-wise Jobs', or 'District-wise Jobs', include an Application Fee table, exam schedules/timelines table, post qualifications, age limits, and step-by-step how to apply instructions.
+    2. If the category is 'Admit Cards' or 'Results', DO NOT include any Application Fee details, Age Limit details, or How to Apply sections/headings in the markdown. Focus exclusively on exam day guidelines, timelines/schedules, verification documents, and cut-off or download updates.
+
+    {category_note}
+
+    CRITICAL RULES FOR STATE & DISTRICT EXTRACTION:
+    1. Carefully look at the title, department, and description to see if this is related to a specific Indian state (e.g. West Bengal, Bihar, Uttar Pradesh, Rajasthan, Maharashtra, etc.) or a specific district/block/municipality.
+    2. If it is a state-level recruitment, set "state" to the full official name of the State (e.g. "West Bengal", "Bihar") and "category" to "State-wise Jobs".
+    3. If it is a district-level or block/municipality-level recruitment (e.g. Patna District, Kolkata Municipal Corporation, Chinhat Block, Danapur Block), set "state" to the state name, "district" to the district name (e.g. "Patna", "Kolkata", "Lucknow"), and if applicable, set "block" (e.g. "Danapur", "Chinhat") or "municipality" (e.g. "Kolkata MC"). Also set "category" to "District-wise Jobs".
+    4. For central/national level jobs (e.g., UPSC Civil Services, SSC CGL, RRB, IBPS), set "state", "district", "block", and "municipality" to null, and set "category" to "Central Govt Jobs".
+    
+    Raw Job Text:
+    ---
+    {raw_text}
+    ---
+    
+    Output must be a valid raw JSON object ONLY, with no markdown formatting or extra text. Use the following keys:
+    {{
+      "title": "Standardized concise title (e.g. UPSC CSE 2026, SSC CGL 2026 Admit Card, or BPSC 69th Result). Ensure this title is clean, uniform, and does not contain clickbait phrases like 'Direct Link' or 'Out Now' so that we can deduplicate identical postings.",
+      "department": "Name of recruitment body (e.g. Union Public Service Commission, West Bengal Municipal Service Commission)",
+      "category": "Must be exactly one of: 'Central Govt Jobs', 'State-wise Jobs', 'District-wise Jobs', 'Admit Cards', 'Results'",
+      "state": "State name if applicable (or null)",
+      "district": "District name if applicable (or null)",
+      "block": "Block subdivision if applicable (or null)",
+      "municipality": "Municipality name if applicable (or null)",
+      "overview": "Professional human-written summary explaining the job role / admit card release / result announcement",
+      "eligibility": "Clear details about qualification or download eligibility",
+      "age_limit": "Minimum and maximum age limits if applicable (e.g., 18 to 30 years or null)",
+      "salary": "Detailed pay scale or monthly salary range if applicable (or null)",
+      "start_date": "YYYY-MM-DD format (or null)",
+      "end_date": "YYYY-MM-DD format (or null)",
+      "exam_date": "YYYY-MM-DD format (or null)",
+      "how_to_apply": "Step-by-step instructions for submitting application, downloading admit card, or checking result",
+      "apply_link": "Direct URL to official government apply / download / check portal (ending in .gov.in, .nic.in, .edu.in, .org, or specific official board domain). NEVER use third-party domains (like jobrasta.com, freejobalert.com, indgovtjobs.in, karmasandhan.com) - if not found, set to null.",
+      "official_pdf_link": "Direct URL to official PDF notification on government servers (or null). NEVER use third-party domains.",
+      "content": "Rich markdown content including a table for fees details, a table for important schedules/dates, and vacancy lists."
+    }}
+    """
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    
+    body = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.1,
+        "response_format": {"type": "json_object"}
+    }
+    
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(body).encode("utf-8"),
+        headers=headers,
+        method="POST"
+    )
+    
+    try:
+        print("Querying DeepSeek API (deepseek-chat)...")
+        with urllib.request.urlopen(req, timeout=30) as response:
+            res = json.loads(response.read().decode("utf-8"))
+            content = res['choices'][0]['message']['content'].strip()
+            return json.loads(content)
+    except Exception as e:
+        print(f"DeepSeek parsing failed: {e}")
+        return None
+
 def query_ollama_to_parse(raw_text, category_hint=None):
     """
     Queries local Llama3 to parse raw text (offline fallback).
@@ -410,11 +498,13 @@ def scrape_job_feed():
     service_key = env.get("SUPABASE_SERVICE_ROLE_KEY") or env.get("NEXT_PUBLIC_SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
     gemini_key = env.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY")
     groq_key = env.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
+    deepseek_key = env.get("DEEPSEEK_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
 
     print(f"Supabase URL configured: {'Yes' if supabase_url else 'NO!'}")
     print(f"Service Key configured: {'Yes' if service_key else 'NO!'}")
     print(f"Gemini API Key configured: {'Yes' if gemini_key else 'NO!'}")
     print(f"Groq API Key configured: {'Yes' if groq_key else 'NO!'}")
+    print(f"DeepSeek API Key configured: {'Yes' if deepseek_key else 'NO!'}")
 
     if not supabase_url or not service_key:
         print("Error: Supabase URL and Service key not configured.")
@@ -551,15 +641,21 @@ def scrape_job_feed():
                     print("Sleeping 12 seconds to respect Gemini API rate limits...")
                     time.sleep(12)
                 
-                # Fallback to Groq if Gemini failed or is not available
+                # Fallback to DeepSeek if Gemini failed or is not available
+                if not parsed_job and deepseek_key:
+                    print("Gemini failed/unavailable. Falling back to DeepSeek...")
+                    time.sleep(2)
+                    parsed_job = query_deepseek_to_parse(clean_text, deepseek_key, category_hint)
+                
+                # Fallback to Groq if both failed or are not available
                 if not parsed_job and groq_key:
-                    print("Gemini failed/unavailable. Falling back to Groq Llama-3...")
+                    print("Gemini/DeepSeek failed/unavailable. Falling back to Groq Llama-3...")
                     # Sleep 4 seconds to respect Groq requests-per-minute (RPM) limits
                     time.sleep(4)
                     parsed_job = query_groq_to_parse(clean_text, groq_key, category_hint)
                 
                 # Offline fallback to local Ollama
-                if not parsed_job and not gemini_key and not groq_key:
+                if not parsed_job and not gemini_key and not deepseek_key and not groq_key:
                     parsed_job = query_ollama_to_parse(clean_text, category_hint)
 
                 if parsed_job:
