@@ -75,7 +75,7 @@ export default function Header() {
               <img 
                 src="/logo.png" 
                 alt="Sarkari Premium Logo" 
-                className="h-10 w-auto rounded-lg shadow-sm border border-gray-200/10 transform group-hover:scale-105 transition-all duration-200"
+                className="h-[50px] w-auto transform group-hover:scale-105 transition-all duration-200"
               />
             </Link>
           </div>

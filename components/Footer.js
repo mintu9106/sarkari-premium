@@ -11,7 +11,7 @@ export default function Footer() {
               <img 
                 src="/logo.png" 
                 alt="Sarkari Premium Logo" 
-                className="h-8 w-auto rounded-md shadow-sm border border-gray-200/10"
+                className="h-[45px] w-auto"
               />
             </Link>
             <p className="text-xs leading-relaxed max-w-sm">
