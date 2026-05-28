@@ -30,18 +30,7 @@ export default async function Home() {
     if (job.category === 'Govt Schemes') return;
     if (job.important_dates) {
       const dates = job.important_dates;
-      // Event: Application Starts
-      if (dates.start_date && job.category !== 'Admit Cards' && job.category !== 'Results') {
-        timelineEvents.push({
-          jobTitle: job.title,
-          category: job.category,
-          slug: job.slug,
-          eventName: "Application Starts",
-          dateStr: dates.start_date,
-          type: "start"
-        });
-      }
-      // Event: Last Date to Apply
+      // Event: Last Date to Apply (Prioritize deadlines over start dates)
       if (dates.end_date && job.category !== 'Admit Cards' && job.category !== 'Results') {
         timelineEvents.push({
           jobTitle: job.title,
