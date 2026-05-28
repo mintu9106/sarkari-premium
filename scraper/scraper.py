@@ -142,6 +142,10 @@ def query_gemini_to_parse(raw_text, api_key, category_hint=None):
             except Exception as read_err:
                 print(f"HTTP Error {e.code}: {e.reason} (Failed to read body: {read_err})")
             if e.code == 429:
+                # If it's a daily/minute quota limit exhaustion, fail immediately to allow fast fallback
+                if 'err_body' in locals() and any(word in err_body.lower() for word in ['quota', 'limit', 'exhausted']):
+                    print("Gemini free tier quota exhausted. Skipping retries to trigger fallback...")
+                    return None
                 wait_time = 30 * (attempt + 1)  # 30s, 60s, 90s
                 print(f"Waiting {wait_time}s before retry...")
                 time.sleep(wait_time)
@@ -219,11 +223,12 @@ def query_groq_to_parse(raw_text, api_key, category_hint=None):
     
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
+        "Authorization": f"Bearer {api_key}",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
     
     body = {
-        "model": "llama3-70b-8192",
+        "model": "llama-3.3-70b-versatile",
         "messages": [
             {"role": "user", "content": prompt}
         ],
@@ -239,7 +244,7 @@ def query_groq_to_parse(raw_text, api_key, category_hint=None):
     )
     
     try:
-        print("Querying Groq API (llama3-70b)...")
+        print("Querying Groq API (llama-3.3-70b-versatile)...")
         with urllib.request.urlopen(req, timeout=30) as response:
             res = json.loads(response.read().decode("utf-8"))
             content = res['choices'][0]['message']['content'].strip()
