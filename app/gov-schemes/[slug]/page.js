@@ -43,6 +43,24 @@ export async function generateMetadata({ params }) {
   };
 }
 
+const formatPostDate = (dateStr) => {
+  if (!dateStr) return null;
+  try {
+    const date = new Date(dateStr);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    return `${day} ${month} ${year} at ${hours}:${minutes} ${ampm}`;
+  } catch (e) {
+    return null;
+  }
+};
+
 export default async function GovSchemePage({ params }) {
   const resolvedParams = await params;
   const job = await getJobBySlug(resolvedParams.slug);
@@ -113,6 +131,14 @@ export default async function GovSchemePage({ params }) {
           <div className="text-sm font-medium text-white/90">
             <TranslateText text={job.department} />
           </div>
+          {job.updated_at && (
+            <div className="text-[11px] text-white/75 font-semibold flex items-center gap-1.5 pt-1">
+              <svg className="w-3.5 h-3.5 shrink-0 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span><TranslateText text="Posted" />: {formatPostDate(job.updated_at)}</span>
+            </div>
+          )}
         </div>
       </div>
 
