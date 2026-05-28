@@ -72,8 +72,11 @@ export default function Header() {
           {/* Logo / Title */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="bg-amber-500 text-black px-2.5 py-1 rounded font-black text-lg tracking-wider transform group-hover:scale-105 transition-all shadow-md">SARKARI</span>
-              <span className="font-extrabold text-xl tracking-tight text-gray-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">PREMIUM</span>
+              <img 
+                src="/logo.png" 
+                alt="Sarkari Premium Logo" 
+                className="h-10 w-auto rounded-lg shadow-sm border border-gray-200/10 transform group-hover:scale-105 transition-all duration-200"
+              />
             </Link>
           </div>
 

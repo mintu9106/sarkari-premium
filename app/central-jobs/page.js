@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function CentralJobsPage() {
-  const jobs = await getJobs();
+  const jobs = await getJobs(true);
   const filteredJobs = jobs.filter(
     (job) => job.category === 'Central Govt Jobs'
   );

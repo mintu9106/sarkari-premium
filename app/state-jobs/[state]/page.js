@@ -32,7 +32,7 @@ export default async function StateJobsPage({ params }) {
     .map(w => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
 
-  const jobs = await getJobs();
+  const jobs = await getJobs(true);
   
   // Filter jobs by matching normalized state name
   const filteredJobs = jobs.filter(

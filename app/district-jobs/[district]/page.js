@@ -26,7 +26,7 @@ export default async function DistrictJobsPage({ params }) {
   const distSlug = resolvedParams.district;
   const distName = distSlug.charAt(0).toUpperCase() + distSlug.slice(1);
 
-  const jobs = await getJobs();
+  const jobs = await getJobs(true);
   
   // Filter jobs by matching normalized district name
   const filteredJobs = jobs.filter(

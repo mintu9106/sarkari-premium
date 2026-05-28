@@ -5,7 +5,7 @@ import TranslateText from '@/components/TranslateText';
 export const revalidate = 60; // Revalidate page every 60 seconds (ISR)
 
 export default async function Home() {
-  const jobs = await getJobs();
+  const jobs = await getJobs(true);
 
   // Categorize jobs
   const latestJobs = jobs.filter(

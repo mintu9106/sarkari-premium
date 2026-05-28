@@ -8,8 +8,11 @@ export default function Footer() {
           {/* Logo & Intro */}
           <div className="space-y-4 col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2">
-              <span className="bg-amber-500 text-black px-2 py-0.5 rounded font-black text-sm tracking-wider">SARKARI</span>
-              <span className="font-extrabold text-md tracking-tight text-gray-900 dark:text-white">PREMIUM</span>
+              <img 
+                src="/logo.png" 
+                alt="Sarkari Premium Logo" 
+                className="h-8 w-auto rounded-md shadow-sm border border-gray-200/10"
+              />
             </Link>
             <p className="text-xs leading-relaxed max-w-sm">
               Sarkari Premium is India's premium job portal providing instant, human-written, and well-structured government job notifications, admit cards, and results. We aim to simplify your career search with zero clutter.
