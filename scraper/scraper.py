@@ -554,6 +554,8 @@ def scrape_job_feed():
                 # Fallback to Groq if Gemini failed or is not available
                 if not parsed_job and groq_key:
                     print("Gemini failed/unavailable. Falling back to Groq Llama-3...")
+                    # Sleep 4 seconds to respect Groq requests-per-minute (RPM) limits
+                    time.sleep(4)
                     parsed_job = query_groq_to_parse(clean_text, groq_key, category_hint)
                 
                 # Offline fallback to local Ollama
