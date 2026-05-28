@@ -128,14 +128,14 @@ export default async function Home() {
       {/* Hero / Quick Search Banner */}
       <section className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white p-8 sm:p-12 shadow-xl border border-slate-800">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.1),transparent_50%)]"></div>
-        <div className="relative max-w-3xl space-y-6">
+        <div className="relative max-w-5xl space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
             <TranslateText text="Premium Gov Job Updates" />
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
             <TranslateText text="Get the most accurate updates for government jobs without any hassle." />
           </h1>
-          <p className="text-slate-300 text-sm max-w-xl leading-relaxed">
+          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed">
             <TranslateText text="Sarkari Premium fetches, parses, and cleans official government recruitment notifications into structured eligibility and apply guides." />
           </p>
           {/* Quick Stats */}
