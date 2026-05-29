@@ -18,6 +18,7 @@ export default function Footer() {
               
               {/* Follow Us (Social Links next to logo on mobile/desktop) */}
               <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <span className="text-gray-900 dark:text-white font-bold text-[10px] sm:text-xs uppercase tracking-wider mr-1">Follow Us:</span>
                 <a href="https://t.me/sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-500 hover:bg-blue-500 hover:text-white transition-all" title="Telegram Channel">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.74 3.79-1.65 6.32-2.73 7.59-3.25 3.61-1.48 4.36-1.74 4.85-1.75.11 0 .35.03.51.16.13.1.17.25.19.35.02.13.02.27.01.4z"/>
