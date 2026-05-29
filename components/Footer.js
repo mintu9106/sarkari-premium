@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Logo & Follow Us Row */}
           <div className="space-y-4 col-span-2">
-            <div className="flex items-start justify-between md:justify-start md:gap-8">
+            <div className="flex items-start justify-between md:justify-start md:gap-16">
               {/* Logo */}
               <Link href="/" className="flex items-center gap-2">
                 <img 
