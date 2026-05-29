@@ -7,32 +7,32 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Logo & Follow Us Row */}
           <div className="space-y-4 col-span-2">
-            <div className="flex items-center justify-start gap-8 sm:gap-12 md:gap-16">
+            <div className="flex items-start justify-between md:justify-start md:gap-8">
               {/* Logo */}
               <Link href="/" className="flex items-center gap-2">
                 <img 
                   src="/logo.png" 
                   alt="Sarkari Premium Logo" 
-                  className="h-[45px] w-auto"
+                  className="h-[52px] w-auto"
                 />
               </Link>
               
               {/* Follow Us (Heading on top, Icons below it next to Logo) */}
-              <div className="space-y-1.5 shrink-0">
-                <h3 className="text-gray-900 dark:text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider">Follow Us</h3>
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <a href="https://t.me/sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-500 hover:bg-blue-500 hover:text-white transition-all" title="Telegram Channel">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <div className="space-y-2 shrink-0">
+                <h3 className="text-gray-900 dark:text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider">Follow Us</h3>
+                <div className="flex items-center gap-2.5">
+                  <a href="https://t.me/sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-500 hover:bg-blue-500 hover:text-white transition-all" title="Telegram Channel">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.74 3.79-1.65 6.32-2.73 7.59-3.25 3.61-1.48 4.36-1.74 4.85-1.75.11 0 .35.03.51.16.13.1.17.25.19.35.02.13.02.27.01.4z"/>
                     </svg>
                   </a>
-                  <a href="https://whatsapp.com/channel/sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-green-50 dark:bg-green-950/30 text-green-500 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp Channel">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <a href="https://whatsapp.com/channel/sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-green-50 dark:bg-green-950/30 text-green-500 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp Channel">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.83 14c-.24.68-1.2 1.24-1.67 1.32-.47.08-.85.34-3-.51-2.58-1.01-4.22-3.66-4.35-3.83-.13-.17-1.07-1.43-1.07-2.73 0-1.3.68-1.94.92-2.2.24-.26.52-.33.7-.33.18 0 .36 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.05.07.15.12.33.02.53-.1.2-.15.33-.3.51-.15.18-.32.41-.46.55-.16.16-.33.33-.14.66.19.33.85 1.39 1.82 2.26.84.75 1.56.98 1.78 1.09.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.3-.18.51-.1.21.08 1.34.63 1.57.75.23.12.38.18.44.28.06.1.06.58-.18 1.26z"/>
                     </svg>
                   </a>
-                  <a href="https://youtube.com/@sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-red-50 dark:bg-red-950/30 text-red-600 hover:bg-red-600 hover:text-white transition-all" title="YouTube Channel">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <a href="https://youtube.com/@sarkaripremium" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-red-50 dark:bg-red-950/30 text-red-600 hover:bg-red-600 hover:text-white transition-all" title="YouTube Channel">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                     </svg>
                   </a>
