@@ -224,6 +224,43 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Join Community Banner */}
+      <section className="bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-blue-500/10 rounded-2xl border border-[var(--border-color)] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="space-y-2 text-center md:text-left">
+          <h2 className="text-lg sm:text-xl font-black text-gray-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shrink-0"></span>
+            <TranslateText text="Get Instant Alerts on Mobile!" />
+          </h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md">
+            <TranslateText text="Join our Telegram group and WhatsApp channel to receive instant notifications for new government jobs, admit cards, and exam results." />
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 w-full md:w-auto shrink-0">
+          <a
+            href="https://t.me/sarkaripremium"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all shadow hover:shadow-lg hover:-translate-y-0.5"
+          >
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.74 3.79-1.65 6.32-2.73 7.59-3.25 3.61-1.48 4.36-1.74 4.85-1.75.11 0 .35.03.51.16.13.1.17.25.19.35.02.13.02.27.01.4z"/>
+            </svg>
+            <TranslateText text="Join Telegram" />
+          </a>
+          <a
+            href="https://whatsapp.com/channel/sarkaripremium"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow hover:shadow-lg hover:-translate-y-0.5"
+          >
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.83 14c-.24.68-1.2 1.24-1.67 1.32-.47.08-.85.34-3-.51-2.58-1.01-4.22-3.66-4.35-3.83-.13-.17-1.07-1.43-1.07-2.73 0-1.3.68-1.94.92-2.2.24-.26.52-.33.7-.33.18 0 .36 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.05.07.15.12.33.02.53-.1.2-.15.33-.3.51-.15.18-.32.41-.46.55-.16.16-.33.33-.14.66.19.33.85 1.39 1.82 2.26.84.75 1.56.98 1.78 1.09.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.3-.18.51-.1.21.08 1.34.63 1.57.75.23.12.38.18.44.28.06.1.06.58-.18 1.26z"/>
+            </svg>
+            <TranslateText text="Join WhatsApp" />
+          </a>
+        </div>
+      </section>
+
       {/* Sarkari Result Three-Column Dashboard */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
