@@ -8,6 +8,8 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -31,3 +33,15 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           python scraper/scraper.py
+
+      - name: Commit and Push Updated Database
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add jobs_db.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-update: sync scraped jobs in database [skip ci]"
+            git push origin main
+          else
+            echo "No changes in jobs_db.json to commit."
+          fi

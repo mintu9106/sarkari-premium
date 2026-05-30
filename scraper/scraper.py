@@ -474,6 +474,62 @@ def upsert_to_supabase(parsed_job, supabase_url, service_key):
         print(f"Supabase write failed: {e}")
         return False
 
+def upsert_to_local_db(parsed_job):
+    try:
+        title = parsed_job.get("title", "")
+        slug = parsed_job.get("slug") or title.lower().strip()
+        slug = re.sub(r'[^\w\s-]', '', slug)
+        slug = re.sub(r'[\s_-]+', '-', slug)
+        
+        local_db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'jobs_db.json')
+        local_jobs = []
+        if os.path.exists(local_db_path):
+            with open(local_db_path, 'r', encoding='utf-8') as f:
+                local_jobs = json.load(f)
+        
+        existing_idx = next((index for (index, d) in enumerate(local_jobs) if d.get("slug") == slug), None)
+        
+        job_data = {
+            "id": parsed_job.get("id") or os.urandom(8).hex(),
+            "title": title,
+            "department": parsed_job.get("department", ""),
+            "category": parsed_job.get("category"),
+            "state": parsed_job.get("state"),
+            "district": parsed_job.get("district"),
+            "block": parsed_job.get("block"),
+            "municipality": parsed_job.get("municipality"),
+            "overview": parsed_job.get("overview", ""),
+            "eligibility": parsed_job.get("eligibility"),
+            "age_limit": parsed_job.get("age_limit", "N/A"),
+            "salary": parsed_job.get("salary"),
+            "important_dates": parsed_job.get("important_dates") or {
+                "start_date": parsed_job.get("start_date"),
+                "end_date": parsed_job.get("end_date"),
+                "exam_date": parsed_job.get("exam_date")
+            },
+            "how_to_apply": parsed_job.get("how_to_apply"),
+            "apply_link": parsed_job.get("apply_link"),
+            "official_pdf_link": parsed_job.get("official_pdf_link"),
+            "slug": slug,
+            "meta_title": parsed_job.get("meta_title") or f"{title} 2026: Online Form, Eligibility & Benefits",
+            "meta_description": parsed_job.get("meta_description") or parsed_job.get("overview", "")[:155],
+            "content": parsed_job.get("content"),
+            "updated_at": datetime.utcnow().isoformat() + "Z"
+        }
+        
+        if existing_idx is not None:
+            local_jobs[existing_idx] = job_data
+        else:
+            local_jobs.append(job_data)
+            
+        with open(local_db_path, 'w', encoding='utf-8') as f:
+            json.dump(local_jobs, f, indent=2, ensure_ascii=False)
+        print(f"Successfully saved job to local jobs_db.json: {title}")
+        return True
+    except Exception as e:
+        print(f"Failed to write to local database: {e}")
+        return False
+
 def clean_official_link(url):
     """
     Strips third-party blog links (like JobRasta, FreeJobAlert) to prevent leakage
@@ -685,6 +741,8 @@ def scrape_job_feed():
 
                     # Upload directly to Supabase
                     upsert_to_supabase(parsed_job, supabase_url, service_key)
+                    # Save to local db for static generation/commit pipeline
+                    upsert_to_local_db(parsed_job)
                 else:
                     print(f"Skipping notice parsing for: {title}")
                     
