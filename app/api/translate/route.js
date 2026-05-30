@@ -137,12 +137,13 @@ export async function POST(req) {
 
     // 2. Try Free Google Translate API (fast, reliable, no API key, high limits)
     try {
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         const translatedText = data[0].map(x => x[0]).join('');
-        if (translatedText) {
+        // If translation succeeded and did not just return the original English text
+        if (translatedText && (translatedText.toLowerCase() !== text.toLowerCase() || !/[a-zA-Z]/.test(text))) {
           return NextResponse.json({ translatedText });
         }
       }
