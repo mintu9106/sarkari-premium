@@ -740,7 +740,9 @@ def scrape_job_feed():
                             parsed_job["apply_link"] = cleaned_feed_link
 
                     # Upload directly to Supabase
-                    upsert_to_supabase(parsed_job, supabase_url, service_key)
+                    success = upsert_to_supabase(parsed_job, supabase_url, service_key)
+                    if not success:
+                        raise Exception(f"CRITICAL: Supabase upload failed for job: '{title}'. Aborting pipeline to prevent out-of-sync databases.")
                     # Save to local db for static generation/commit pipeline
                     upsert_to_local_db(parsed_job)
                 else:
