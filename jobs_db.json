@@ -513,33 +513,6 @@
     "id": "13aqttsyv"
   },
   {
-    "id": "6d7cd8fcdaba3fb4",
-    "title": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
-    "department": "Ministry of Agriculture and Farmers Welfare",
-    "category": "Govt Schemes",
-    "state": null,
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "PM-KISAN is a central sector scheme that provides income support of Rs. 6,000 per year to all landholding farmer families. The amount is transferred directly into the bank accounts of beneficiaries in three equal installments of Rs. 2,000 each.",
-    "eligibility": "All landholding farmer families with cultivable land. Excludes institutional landholders and certain higher-income groups.",
-    "age_limit": "N/A",
-    "salary": "Rs. 6,000 per year (Rs. 2,000 per installment)",
-    "important_dates": {
-      "start_date": "2019-02-24",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Visit the PM-KISAN portal (pmkisan.gov.in) and click on 'New Farmer Registration'. Enter Aadhaar number, bank details, and land records. Alternatively, approach local agriculture office or Common Service Centre (CSC).",
-    "apply_link": "https://pmkisan.gov.in",
-    "official_pdf_link": null,
-    "slug": "pradhan-mantri-kisan-samman-nidhi-pm-kisan",
-    "meta_title": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "PM-KISAN is a central sector scheme that provides income support of Rs. 6,000 per year to all landholding farmer families. The amount is transferred direct",
-    "content": "### Benefits\n- Income support of Rs. 6,000 per year in three installments.\n- Direct Benefit Transfer (DBT) to bank accounts.\n\n### Documents Required\n- Aadhaar card\n- Land records (Khasra/Khatauni)\n- Bank account details (IFSC code)\n- Mobile number\n\n### How to Apply\n1. Go to pmkisan.gov.in.\n2. Click on 'New Farmer Registration'.\n3. Enter Aadhaar number and verify via OTP.\n4. Fill in personal, land, and bank details.\n5. Submit and note the application number.",
-    "updated_at": "2026-05-29T12:40:25.594138Z"
-  },
-  {
     "id": "b8bec0c780ea79c2",
     "title": "Pradhan Mantri Awas Yojana - Urban (PMAY-U)",
     "department": "Ministry of Housing and Urban Affairs",
@@ -2565,33 +2538,6 @@
     "updated_at": "2026-05-29T12:44:40.548219Z"
   },
   {
-    "id": "da5d9b115477a12e",
-    "title": "Mukhyamantri Kanya Sumangala Yojana",
-    "department": "Department of Women and Child Development, Government of Uttar Pradesh",
-    "category": "Govt Schemes",
-    "state": "Uttar Pradesh",
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "Mukhyamantri Kanya Sumangala Yojana is a Uttar Pradesh government scheme to support the education and welfare of girl children. It provides financial assistance at various stages from birth to graduation to prevent gender discrimination and promote girls' education.",
-    "eligibility": "Girls born in families with annual income less than Rs. 3 lakh, residing in Uttar Pradesh. The scheme covers up to two girl children per family.",
-    "age_limit": "From birth to graduation (up to 21 years)",
-    "salary": "Total financial assistance of Rs. 15,000 distributed in installments: Rs. 2,000 at birth, Rs. 1,000 at 1 year, Rs. 2,000 at class 1, Rs. 2,000 at class 6, Rs. 3,000 at class 9, and Rs. 5,000 at graduation.",
-    "important_dates": {
-      "start_date": "2019-04-01",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Apply online through the UP government portal. Register the girl child's birth, then submit applications at each stage with required documents.",
-    "apply_link": "https://www.mksy.up.gov.in",
-    "official_pdf_link": null,
-    "slug": "mukhyamantri-kanya-sumangala-yojana",
-    "meta_title": "Mukhyamantri Kanya Sumangala Yojana 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "Mukhyamantri Kanya Sumangala Yojana is a Uttar Pradesh government scheme to support the education and welfare of girl children. It provides financial assis",
-    "content": "### Benefits\n- Financial assistance at six milestones: birth, 1 year, class 1, class 6, class 9, and graduation.\n- Total benefit of Rs. 15,000 per girl child.\n\n### Documents Required\n- Birth certificate\n- Aadhaar card\n- Income certificate\n- School enrollment proof\n- Bank account details\n\n### How to Apply\n1. Register the birth of the girl child on the portal.\n2. Apply for each installment by logging in and filling the respective form.\n3. Upload required documents.\n4. Submit and track application status.",
-    "updated_at": "2026-05-29T12:44:41.412192Z"
-  },
-  {
     "id": "b62b383f879e14a8",
     "title": "Mukhyamantri Yuva Swarozgar Yojana",
     "department": "Department of Skill Development and Entrepreneurship, Government of Uttar Pradesh",
@@ -2700,60 +2646,6 @@
     "updated_at": "2026-05-29T12:44:43.749687Z"
   },
   {
-    "id": "e0609bb8332f7ec0",
-    "title": "Bihar Mukhyamantri Udyami Yojana",
-    "department": "Department of Industries, Government of Bihar",
-    "category": "Govt Schemes",
-    "state": "Bihar",
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "Bihar Mukhyamantri Udyami Yojana is a state government scheme to promote entrepreneurship among the youth of Bihar. It provides financial assistance and training to set up micro and small enterprises.",
-    "eligibility": "Residents of Bihar aged 18-50 years, with educational qualification of at least Class 10. Family income less than Rs. 3 lakh per annum. Preference to SC/ST, women, and backward classes.",
-    "age_limit": "18 to 50 years",
-    "salary": "Subsidized loan up to Rs. 10 lakh with 25% capital subsidy (max Rs. 2.5 lakh).",
-    "important_dates": {
-      "start_date": "2018-04-01",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Apply online through the Bihar government portal. Fill the application, upload project report and documents, and submit. The application is processed by the district industries center.",
-    "apply_link": "https://www.udyami.bihar.gov.in",
-    "official_pdf_link": null,
-    "slug": "bihar-mukhyamantri-udyami-yojana",
-    "meta_title": "Bihar Mukhyamantri Udyami Yojana 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "Bihar Mukhyamantri Udyami Yojana is a state government scheme to promote entrepreneurship among the youth of Bihar. It provides financial assistance and tr",
-    "content": "### Benefits\n- Loan up to Rs. 10 lakh at subsidized interest.\n- Capital subsidy of 25% (max Rs. 2.5 lakh).\n- Free entrepreneurship training.\n\n### Documents Required\n- Aadhaar card\n- Educational certificates\n- Income certificate\n- Caste certificate (if applicable)\n- Project report\n- Bank account details\n\n### How to Apply\n1. Visit the official portal and register.\n2. Fill the application form with business plan.\n3. Upload required documents.\n4. Submit and get application number.\n5. Attend training if required.\n6. Loan is sanctioned after verification.",
-    "updated_at": "2026-05-29T12:44:44.482605Z"
-  },
-  {
-    "id": "2266b6b6cd706a24",
-    "title": "Bihar Mukhyamantri Kanya Utthan Yojana",
-    "department": "Department of Social Welfare, Government of Bihar",
-    "category": "Govt Schemes",
-    "state": "Bihar",
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "Bihar Mukhyamantri Kanya Utthan Yojana is a scheme to promote the education and welfare of girl children in Bihar. It provides financial incentives at various stages of a girl's life to encourage her education and delay marriage.",
-    "eligibility": "Girls born in families with annual income less than Rs. 2 lakh, residing in Bihar. Only two girl children per family are eligible.",
-    "age_limit": "From birth to graduation (up to 21 years)",
-    "salary": "Total financial assistance of Rs. 54,000 distributed in installments: Rs. 2,000 at birth, Rs. 2,000 at 1 year, Rs. 2,000 at class 1, Rs. 2,000 at class 6, Rs. 2,000 at class 9, Rs. 2,000 at class 10, Rs. 2,000 at class 12, and Rs. 40,000 at graduation.",
-    "important_dates": {
-      "start_date": "2018-04-01",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Apply online through the Bihar government portal. Register the girl child's birth and apply for each installment at the appropriate time.",
-    "apply_link": "https://www.kanyautthan.bihar.gov.in",
-    "official_pdf_link": null,
-    "slug": "bihar-mukhyamantri-kanya-utthan-yojana",
-    "meta_title": "Bihar Mukhyamantri Kanya Utthan Yojana 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "Bihar Mukhyamantri Kanya Utthan Yojana is a scheme to promote the education and welfare of girl children in Bihar. It provides financial incentives at vari",
-    "content": "### Benefits\n- Financial assistance at nine milestones: birth, 1 year, class 1, 6, 9, 10, 12, and graduation.\n- Total benefit of Rs. 54,000.\n\n### Documents Required\n- Birth certificate\n- Aadhaar card\n- Income certificate\n- School enrollment proof\n- Bank account details\n\n### How to Apply\n1. Register the girl child's birth on the portal.\n2. Apply for each installment by logging in.\n3. Upload required documents.\n4. Submit and track application.",
-    "updated_at": "2026-05-29T12:44:45.097700Z"
-  },
-  {
     "id": "d40b28284f1aba52",
     "title": "Bihar Student Credit Card Scheme",
     "department": "Department of Education, Government of Bihar",
@@ -2833,33 +2725,6 @@
     "meta_description": "Bihar Mukhyamantri Vriddhajan Pension Yojana is a social security scheme for elderly citizens in Bihar. It provides a monthly pension to support their basi",
     "content": "### Benefits\n- Monthly pension of Rs. 400.\n- Financial support for elderly.\n\n### Documents Required\n- Age proof (birth certificate, Aadhaar)\n- Income certificate\n- Residence proof\n- Bank account details\n\n### How to Apply\n1. Visit the local Social Welfare office or the official portal.\n2. Fill the pension application form.\n3. Attach required documents.\n4. Submit to the concerned officer.\n5. After verification, pension is credited monthly.",
     "updated_at": "2026-05-29T12:44:47.041609Z"
-  },
-  {
-    "id": "1f967adb56a4d35f",
-    "title": "Maharashtra Mukhyamantri Majhi Ladki Bahin Yojana",
-    "department": "Department of Women and Child Development, Government of Maharashtra",
-    "category": "Govt Schemes",
-    "state": "Maharashtra",
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "Mukhyamantri Majhi Ladki Bahin Yojana is a Maharashtra government scheme to provide financial assistance to women from economically weaker sections. It aims to empower women and improve their socio-economic status.",
-    "eligibility": "Women aged 21-60 years, with family income less than Rs. 2.5 lakh per annum, and resident of Maharashtra. Not applicable to income tax payers.",
-    "age_limit": "21 to 60 years",
-    "salary": "Monthly financial assistance of Rs. 1,500 (may vary; check latest updates).",
-    "important_dates": {
-      "start_date": "2023-08-01",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Apply online through the Maharashtra government portal. Fill the application, upload documents, and submit. The application is verified at the village/ward level.",
-    "apply_link": "https://www.majhiladkibahin.maharashtra.gov.in",
-    "official_pdf_link": null,
-    "slug": "maharashtra-mukhyamantri-majhi-ladki-bahin-yojana",
-    "meta_title": "Maharashtra Mukhyamantri Majhi Ladki Bahin Yojana 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "Mukhyamantri Majhi Ladki Bahin Yojana is a Maharashtra government scheme to provide financial assistance to women from economically weaker sections. It aim",
-    "content": "### Benefits\n- Monthly financial assistance of Rs. 1,500.\n- Direct bank transfer to women's accounts.\n\n### Documents Required\n- Aadhaar card\n- Income certificate\n- Residence proof\n- Bank account details\n- Age proof\n\n### How to Apply\n1. Visit the official portal and register.\n2. Fill the application form with personal details.\n3. Upload required documents.\n4. Submit and get acknowledgment.\n5. After verification, amount is credited monthly.",
-    "updated_at": "2026-05-29T12:44:47.656581Z"
   },
   {
     "id": "0726d1a0eaa71a6a",
@@ -2943,33 +2808,6 @@
     "updated_at": "2026-05-29T12:44:49.239920Z"
   },
   {
-    "id": "be164bea9d00d838",
-    "title": "Rajasthan Mukhyamantri Chiranjeevi Swasthya Bima Yojana",
-    "department": "Department of Medical and Health, Government of Rajasthan",
-    "category": "Govt Schemes",
-    "state": "Rajasthan",
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "The scheme provides cashless health insurance coverage up to Rs. 25 lakh per family per year for secondary and tertiary care. It aims to reduce out-of-pocket health expenditure for residents of Rajasthan.",
-    "eligibility": "All residents of Rajasthan with valid domicile, except those covered by central government health schemes (e.g., CGHS, ECHS).",
-    "age_limit": "No age limit",
-    "salary": "Health insurance cover up to Rs. 25 lakh per family per year",
-    "important_dates": {
-      "start_date": "2021-05-01",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Visit the nearest empanelled hospital or e-Mitra center with required documents. Fill the application form and submit. The beneficiary will receive a Chiranjeevi card.",
-    "apply_link": "https://chiranjeevi.rajasthan.gov.in",
-    "official_pdf_link": null,
-    "slug": "rajasthan-mukhyamantri-chiranjeevi-swasthya-bima-yojana",
-    "meta_title": "Rajasthan Mukhyamantri Chiranjeevi Swasthya Bima Yojana 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "The scheme provides cashless health insurance coverage up to Rs. 25 lakh per family per year for secondary and tertiary care. It aims to reduce out-of-pock",
-    "content": "### Benefits\n- Cashless health insurance up to Rs. 25 lakh per family per year.\n- Coverage for 1,596 medical procedures including surgeries, diagnostics, and medicines.\n- Pre-existing diseases covered from day one.\n\n### Documents Required\n- Aadhaar card\n- Rajasthan domicile certificate\n- BPL certificate (if applicable)\n- Family photo\n- Mobile number\n\n### How to Apply\n1. Visit any empanelled hospital or e-Mitra center.\n2. Provide Aadhaar and other documents.\n3. Fill the application form.\n4. Receive Chiranjeevi card after verification.",
-    "updated_at": "2026-05-29T12:45:33.049981Z"
-  },
-  {
     "id": "a082f21b7507bb68",
     "title": "Rajasthan Indira Gandhi Urban Employment Guarantee Scheme",
     "department": "Department of Local Self Government, Government of Rajasthan",
@@ -3022,33 +2860,6 @@
     "meta_description": "The scheme provides scooty to meritorious girl students from economically weaker sections to pursue higher education. It aims to reduce dropout rates and p",
     "content": "### Benefits\n- Free scooty to meritorious girl students.\n- Encourages higher education and mobility.\n\n### Documents Required\n- Aadhaar card\n- Class 12 mark sheet\n- Income certificate\n- Domicile certificate\n- Caste certificate (if applicable)\n- Bank account details\n\n### How to Apply\n1. Visit the official website during application window.\n2. Register and fill the application form.\n3. Upload scanned documents.\n4. Submit and note the application number.",
     "updated_at": "2026-05-29T12:45:34.353087Z"
-  },
-  {
-    "id": "4ed089df0a439ee9",
-    "title": "Madhya Pradesh Mukhyamantri Ladli Behna Yojana",
-    "department": "Department of Women and Child Development, Government of Madhya Pradesh",
-    "category": "Govt Schemes",
-    "state": "Madhya Pradesh",
-    "district": null,
-    "block": null,
-    "municipality": null,
-    "overview": "The scheme provides financial assistance of Rs. 1,000 per month to married women from economically weaker families. It aims to empower women and improve their nutritional status.",
-    "eligibility": "Married women aged 23-60 years, resident of Madhya Pradesh, with family annual income less than Rs. 2.5 lakh. Excludes income tax payers and government employees.",
-    "age_limit": "23 to 60 years",
-    "salary": "Rs. 1,000 per month transferred directly to the beneficiary's bank account",
-    "important_dates": {
-      "start_date": "2023-03-05",
-      "end_date": null,
-      "exam_date": null
-    },
-    "how_to_apply": "Apply online through the official portal or at the local Anganwadi center. Provide Aadhaar, marriage certificate, income certificate, and bank details.",
-    "apply_link": "https://ladlibehna.mp.gov.in",
-    "official_pdf_link": null,
-    "slug": "madhya-pradesh-mukhyamantri-ladli-behna-yojana",
-    "meta_title": "Madhya Pradesh Mukhyamantri Ladli Behna Yojana 2026: Online Form, Eligibility & Benefits",
-    "meta_description": "The scheme provides financial assistance of Rs. 1,000 per month to married women from economically weaker families. It aims to empower women and improve th",
-    "content": "### Benefits\n- Monthly financial assistance of Rs. 1,000.\n- Direct bank transfer.\n- Aims to improve women's health and nutrition.\n\n### Documents Required\n- Aadhaar card\n- Marriage certificate\n- Income certificate\n- Residence proof\n- Bank account linked with Aadhaar\n- Passport size photo\n\n### How to Apply\n1. Visit the official website or Anganwadi center.\n2. Fill the application form.\n3. Submit required documents.\n4. Receive beneficiary ID and start getting monthly transfers.",
-    "updated_at": "2026-05-29T12:45:34.966603Z"
   },
   {
     "id": "686f24a3a90fbedb",
