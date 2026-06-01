@@ -40,7 +40,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add jobs_db.json
           if ! git diff --cached --quiet; then
-            git commit -m "Auto-update: sync scraped jobs in database [skip ci]"
+            git commit -m "Auto-update: sync scraped jobs in database"
             git push origin main
           else
             echo "No changes in jobs_db.json to commit."
