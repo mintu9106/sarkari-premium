@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'jobs_db.json'
   schedule:
     - cron: '*/30 * * * *' # Runs automatically every 30 minutes
   workflow_dispatch: # Allows manual click trigger from GitHub UI

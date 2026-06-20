@@ -550,11 +550,11 @@ def scrape_job_feed():
     """
     # Try .env.local first (local dev), then fall back to os.environ (GitHub Actions)
     env = load_env()
-    supabase_url = env.get("SUPABASE_URL") or env.get("NEXT_PUBLIC_SUPABASE_URL") or os.environ.get("SUPABASE_URL")
-    service_key = env.get("SUPABASE_SERVICE_ROLE_KEY") or env.get("NEXT_PUBLIC_SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
-    gemini_key = env.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY")
-    groq_key = env.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
-    deepseek_key = env.get("DEEPSEEK_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")
+    supabase_url = (env.get("SUPABASE_URL") or env.get("NEXT_PUBLIC_SUPABASE_URL") or os.environ.get("SUPABASE_URL") or "").strip()
+    service_key = (env.get("SUPABASE_SERVICE_ROLE_KEY") or env.get("NEXT_PUBLIC_SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or "").strip()
+    gemini_key = (env.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY") or "").strip()
+    groq_key = (env.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY") or "").strip()
+    deepseek_key = (env.get("DEEPSEEK_API_KEY") or os.environ.get("DEEPSEEK_API_KEY") or "").strip()
 
     print(f"Supabase URL configured: {'Yes' if supabase_url else 'NO!'}")
     print(f"Service Key configured: {'Yes' if service_key else 'NO!'}")
