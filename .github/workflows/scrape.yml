@@ -1,6 +1,9 @@
 name: Sarkari Premium Job Scraper Pipeline
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '*/30 * * * *' # Runs automatically every 30 minutes
   workflow_dispatch: # Allows manual click trigger from GitHub UI
@@ -13,6 +16,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Debug Environment Variables
+        run: |
+          echo "Checking if secrets are configured on GitHub..."
+          if [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then echo "  - GEMINI_API_KEY: SET"; else echo "  - GEMINI_API_KEY: EMPTY"; fi
+          if [ -n "${{ secrets.DEEPSEEK_API_KEY }}" ]; then echo "  - DEEPSEEK_API_KEY: SET"; else echo "  - DEEPSEEK_API_KEY: EMPTY"; fi
+          if [ -n "${{ secrets.GROQ_API_KEY }}" ]; then echo "  - GROQ_API_KEY: SET"; else echo "  - GROQ_API_KEY: EMPTY"; fi
+
 
       - name: Set up Python
         uses: actions/setup-python@v5
