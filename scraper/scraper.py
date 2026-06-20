@@ -567,6 +567,9 @@ def scrape_job_feed():
         print("Checked .env.local file AND os.environ - neither has the credentials.")
         return
 
+    total_new_items = 0
+    successfully_parsed_items = 0
+
     # Define feeds to scrape from multiple popular websites
     feeds = [
         # 1. JobRasta Latest Jobs
@@ -690,6 +693,7 @@ def scrape_job_feed():
                 if check_exists_in_supabase(title, supabase_url, service_key):
                     continue
                 
+                total_new_items += 1
                 parsed_job = None
                 if gemini_key:
                     parsed_job = query_gemini_to_parse(clean_text, gemini_key, category_hint)
@@ -745,11 +749,16 @@ def scrape_job_feed():
                         raise Exception(f"CRITICAL: Supabase upload failed for job: '{title}'. Aborting pipeline to prevent out-of-sync databases.")
                     # Save to local db for static generation/commit pipeline
                     upsert_to_local_db(parsed_job)
+                    successfully_parsed_items += 1
                 else:
                     print(f"Skipping notice parsing for: {title}")
                     
         except Exception as e:
             print(f"Error parsing RSS XML: {e}")
+
+    print(f"\nScraping pipeline summary: Checked feeds. Found {total_new_items} new items. Successfully parsed & saved {successfully_parsed_items} items.")
+    if total_new_items > 0 and successfully_parsed_items == 0:
+        raise Exception(f"CRITICAL ERROR: Found {total_new_items} new items in feeds, but failed to parse/structure any of them. This means your configured LLM API keys (Gemini, DeepSeek, Groq) are either exhausted, invalid, or missing in GitHub Secrets. Please check your keys.")
 
 if __name__ == "__main__":
     scrape_job_feed()
