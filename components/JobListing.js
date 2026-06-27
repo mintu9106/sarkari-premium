@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import TranslateText from '@/components/TranslateText';
+import { useLanguage } from '@/context/LanguageContext';
 const getJobUrl = (category, slug) => {
   if (category === 'Admit Cards') {
     return `/admit-cards/${slug}`;
@@ -17,8 +18,54 @@ const getJobUrl = (category, slug) => {
 };
 
 export default function JobListing({ initialJobs = [], categoryType = 'Jobs', title, subtitle }) {
+  const { language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [showActiveOnly, setShowActiveOnly] = useState(categoryType === 'Jobs'); // Only default to active-only for jobs
+  const [isListening, setIsListening] = useState(false);
+
+  const startVoiceSearch = () => {
+    if (typeof window === 'undefined') return;
+    
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Voice search is not supported in this browser. Please try Chrome, Edge, or Safari.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    // Detect language dynamically based on context language
+    if (language === 'hi') {
+      recognition.lang = 'hi-IN';
+    } else if (language === 'bn') {
+      recognition.lang = 'bn-IN';
+    } else {
+      recognition.lang = 'en-IN';
+    }
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      const cleanedQuery = transcript.replace(/\.$/, '');
+      setSearchQuery(cleanedQuery);
+    };
+
+    recognition.start();
+  };
 
   // Helper to determine if a job is active
   const isActive = (job) => {
@@ -88,11 +135,32 @@ export default function JobListing({ initialJobs = [], categoryType = 'Jobs', ti
           </span>
           <input
             type="text"
-            placeholder={`Search ${categoryType.toLowerCase()} by title, department, or state...`}
+            placeholder={isListening ? "Listening... Speak now..." : `Search ${categoryType.toLowerCase()} by title, department, or state...`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-500 transition-all"
+            className="w-full pl-9 pr-10 py-2 text-sm bg-gray-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-500 transition-all"
           />
+          {/* Voice Search Microphone Button */}
+          <button
+            onClick={startVoiceSearch}
+            className={`absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer transition-colors ${
+              isListening 
+                ? 'text-red-500 hover:text-red-650 animate-pulse' 
+                : 'text-gray-400 hover:text-amber-500 dark:hover:text-amber-400'
+            }`}
+            title="Voice Search"
+            type="button"
+          >
+            {isListening && (
+              <span className="flex h-2 w-2 relative mr-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+            )}
+            <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+          </button>
         </div>
 
         {/* Active Toggle Switch */}
