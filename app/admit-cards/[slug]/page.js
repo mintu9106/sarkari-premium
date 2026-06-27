@@ -4,6 +4,7 @@ import TranslateText from '@/components/TranslateText';
 import TranslateMarkdown from '@/components/TranslateMarkdown';
 import { renderMarkdown, stripSections } from '@/lib/markdown';
 import JobShareButtons from '@/components/JobShareButtons';
+import AeoFaq from '@/components/AeoFaq';
 
 export const revalidate = 60; // ISR validation rate
 
@@ -242,6 +243,9 @@ export default async function AdmitCardPage({ params }) {
         </div>
 
       </div>
+
+      {/* AEO FAQ Section */}
+      <AeoFaq job={job} />
     </article>
   );
 }

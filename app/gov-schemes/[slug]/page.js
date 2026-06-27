@@ -5,6 +5,7 @@ import TranslateMarkdown from '@/components/TranslateMarkdown';
 import { renderMarkdown } from '@/lib/markdown';
 import JobShareButtons from '@/components/JobShareButtons';
 import QuickLinks from '@/components/QuickLinks';
+import AeoFaq from '@/components/AeoFaq';
 
 export const revalidate = 60; // ISR validation rate
 
@@ -256,6 +257,9 @@ export default async function GovSchemePage({ params }) {
         </div>
 
       </div>
+
+      {/* AEO FAQ Section */}
+      <AeoFaq job={job} />
     </article>
   );
 }
