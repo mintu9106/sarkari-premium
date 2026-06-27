@@ -302,6 +302,19 @@ export default async function Home() {
               </div>
             )}
           </div>
+          {latestJobs.length > 0 && (
+            <div className="p-4 bg-gray-50/50 dark:bg-slate-900/10 border-t border-[var(--border-color)] text-center">
+              <Link
+                href="/jobs"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-amber-500 hover:text-amber-600 transition-colors uppercase tracking-wider"
+              >
+                <TranslateText text="View All Jobs" />
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Column 2: Admit Cards */}
@@ -342,6 +355,19 @@ export default async function Home() {
               </div>
             )}
           </div>
+          {admitCards.length > 0 && (
+            <div className="p-4 bg-gray-50/50 dark:bg-slate-900/10 border-t border-[var(--border-color)] text-center">
+              <Link
+                href="/admit-cards"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-blue-500 hover:text-blue-600 transition-colors uppercase tracking-wider"
+              >
+                <TranslateText text="View All Admit Cards" />
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Column 3: Results */}
@@ -382,6 +408,19 @@ export default async function Home() {
               </div>
             )}
           </div>
+          {results.length > 0 && (
+            <div className="p-4 bg-gray-50/50 dark:bg-slate-900/10 border-t border-[var(--border-color)] text-center">
+              <Link
+                href="/results"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-600 hover:text-emerald-500 transition-colors uppercase tracking-wider"
+              >
+                <TranslateText text="View All Results" />
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          )}
         </div>
 
       </section>
