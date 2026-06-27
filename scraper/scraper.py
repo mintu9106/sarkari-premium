@@ -686,6 +686,12 @@ def scrape_job_feed():
 
                 raw_text = f"Title: {title}\nDescription: {description}\nSource Link: {link}"
                 clean_text = clean_html(raw_text)
+                
+                # Optimize input tokens: Truncate clean text to a max of 4000 characters.
+                # 4000 characters is more than enough to capture crucial details (fees, eligibility, dates)
+                # which are always at the beginning, while dropping heavy boilerplate and ads.
+                if len(clean_text) > 4000:
+                    clean_text = clean_text[:4000] + "... (truncated for token optimization)"
 
                 print(f"\nProcessing item: {title}")
                 
