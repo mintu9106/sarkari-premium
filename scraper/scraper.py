@@ -684,6 +684,18 @@ def scrape_job_feed():
                 if not title:
                     continue
 
+                # Pre-filter: Skip academic/unrelated notifications (routines, date sheets, admissions, etc.)
+                academic_keywords = [
+                    "semester", "routine", "date sheet", "date-sheet", "time table", "timetable",
+                    "board exam", "supplementary exam", "counseling", "counselling", 
+                    "admission", "syllabus", "roll number", "class 10", "class 12"
+                ]
+                title_lower = title.lower()
+                if not any(kw in title_lower for kw in ["recruitment", "vacancy", "vacancies", "posts"]):
+                    if any(kw in title_lower for kw in academic_keywords):
+                        print(f"Skipping academic/unrelated item: {title}")
+                        continue
+
                 raw_text = f"Title: {title}\nDescription: {description}\nSource Link: {link}"
                 clean_text = clean_html(raw_text)
                 
@@ -727,6 +739,12 @@ def scrape_job_feed():
                 if parsed_job:
                     # Validate categories
                     valid_categories = ['Central Govt Jobs', 'State-wise Jobs', 'District-wise Jobs', 'Admit Cards', 'Results']
+                    
+                    # Force "Results" category for answer keys so they don't leak into Jobs categories
+                    parsed_title_lower = parsed_job.get("title", "").lower()
+                    if any(kw in parsed_title_lower for kw in ["answer key", "answer sheet", "response sheet"]):
+                        parsed_job["category"] = "Results"
+
                     if parsed_job.get("category") not in valid_categories:
                         if category_hint == "Latest Jobs":
                             # Default fallback based on parsed data state/district
