@@ -143,8 +143,101 @@ SCHEMES_LIST = [
     # State Schemes (Tamil Nadu)
     {"name": "Tamil Nadu Pudhumai Penn Scheme", "state": "Tamil Nadu"},
     {"name": "Tamil Nadu Kalaignar Magalir Urimai Thogai Scheme", "state": "Tamil Nadu"},
-    {"name": "Tamil Nadu Chief Minister’s Breakfast Scheme", "state": "Tamil Nadu"}
-]
+    {"name": "Tamil Nadu Chief Minister’s Breakfast Scheme", "state": "Tamil Nadu"},
+    {"name": "Rythu Bandhu Scheme", "state": "Andhra Pradesh"},
+    {"name": "Amma Vodi Scheme", "state": "Andhra Pradesh"},
+    {"name": "NTR Bharosa Scheme", "state": "Andhra Pradesh"},
+    {"name": "YSR Cheyutha Scheme", "state": "Andhra Pradesh"},
+    {"name": "Arundhati Scheme", "state": "Assam"},
+    {"name": "Mukhya Mantri Krishi Sa Sajuli Yojana", "state": "Assam"},
+    {"name": "Orunodoi Scheme", "state": "Assam"},
+    {"name": "Widow Pension Scheme", "state": "Assam"},
+    {"name": "Mukhyamantri Vridhjan Pension Yojana", "state": "Bihar"},
+    {"name": "Mukhyamantri Kanya Utthan Yojana", "state": "Bihar"},
+    {"name": "Mukhyamantri Gram Parivahan Yojana", "state": "Bihar"},
+    {"name": "Sukhad Yojna", "state": "Chhattisgarh"},
+    {"name": "Rajiv Gandhi Kisan Nyay Yojana", "state": "Chhattisgarh"},
+    {"name": "Mukhyamantri Suposhan Abhiyan", "state": "Chhattisgarh"},
+    {"name": "Mukhyamantri Haat Bazar Clinic Yojana", "state": "Chhattisgarh"},
+    {"name": "Laadli Laxmi Yojana", "state": "Goa"},
+    {"name": "Dayanand Social Security Scheme", "state": "Goa"},
+    {"name": "Mukhyamantri Matru Poshan Abhiyan", "state": "Goa"},
+    {"name": "Cyberage Scheme", "state": "Goa"},
+    {"name": "Mukhyamantri Amrutam Yojana", "state": "Gujarat"},
+    {"name": "Mukhyamantri Gruh Yojana", "state": "Gujarat"},
+    {"name": "Vhali Dikri Yojana", "state": "Gujarat"},
+    {"name": "Mukhyamantri Mahila Utkarsh Yojana", "state": "Gujarat"},
+    {"name": "Ladli Yojana", "state": "Haryana"},
+    {"name": "Saksham Yojna", "state": "Haryana"},
+    {"name": "Mukhyamantri Doodh Uphar Yojana", "state": "Haryana"},
+    {"name": "Mukhyamantri Samajik Samrasta Antyavasayi Yojana", "state": "Haryana"},
+    {"name": "Himachal Health Care Scheme", "state": "Himachal Pradesh"},
+    {"name": "Mukhyamantri Grihini Suvidha Yojana", "state": "Himachal Pradesh"},
+    {"name": "Social Security Pension Scheme", "state": "Himachal Pradesh"},
+    {"name": "Mukhyamantri Yuva Ajeevika Yojana", "state": "Himachal Pradesh"},
+    {"name": "Mukhyamantri Rojgar Protsahan Yojana", "state": "Jharkhand"},
+    {"name": "Sarva Shiksha Abhiyan", "state": "Jharkhand"},
+    {"name": "Mukhyamantri Krishi Ashirwad Yojana", "state": "Jharkhand"},
+    {"name": "Jharkhand Mukhyamantri Shramik Yojana", "state": "Jharkhand"},
+    {"name": "Vidya Deevena Scheme", "state": "Karnataka"},
+    {"name": "Vasati Deevena Scheme", "state": "Karnataka"},
+    {"name": "Mukhyamantri Anila Bhagya Yojana", "state": "Karnataka"},
+    {"name": "Mukhyamantri Santwana Harish Yojana", "state": "Karnataka"},
+    {"name": "Elderly Pension Scheme", "state": "Kerala"},
+    {"name": "Mukhyamantri Yuvashree Arpan Yojana", "state": "Kerala"},
+    {"name": "Niyukthi Yojana", "state": "Kerala"},
+    {"name": "Mukhyamantri Awas Yojana", "state": "Kerala"},
+    {"name": "Ladli Laxmi Yojana", "state": "Madhya Pradesh"},
+    {"name": "Mukhyamantri Kanyadan Yojana", "state": "Madhya Pradesh"},
+    {"name": "Mukhyamantri Jan Kalyan Yojana", "state": "Madhya Pradesh"},
+    {"name": "Deendayal Antyodaya Rasoi Yojana", "state": "Madhya Pradesh"},
+    {"name": "Shiv Bhojan Scheme", "state": "Maharashtra"},
+    {"name": "Mukhyamantri Solar Pump Yojana", "state": "Maharashtra"},
+    {"name": "Majhi Kanya Bhagyashree Scheme", "state": "Maharashtra"},
+    {"name": "Mukhyamantri Maha Janadhar Yojana", "state": "Maharashtra"},
+    {"name": "Loktak Livelihood Mission", "state": "Manipur"},
+    {"name": "Mukhyamantri Hakselgi Tengbang", "state": "Manipur"},
+    {"name": "Chief Ministergi Shotharabasingi Tengbang", "state": "Manipur"},
+    {"name": "Mukhyamantri Mahila Empowerment Scheme", "state": "Manipur"},
+    {"name": "Mukhyamantri Arogya Arunachal Yojana", "state": "Meghalaya"},
+    {"name": "Chief Minister Youth Employment Generation Programme", "state": "Meghalaya"},
+    {"name": "FOCUS Scheme", "state": "Meghalaya"},
+    {"name": "Mukhyamantri Swasthya Bima Yojana", "state": "Meghalaya"},
+    {"name": "Mukhyamantri Krishi Sanjeevani Yojana", "state": "Mizoram"},
+    {"name": "New Land Use Policy", "state": "Mizoram"},
+    {"name": "Mukhyamantri Sambal Yojana", "state": "Mizoram"},
+    {"name": "Chief Minister's Relief Fund", "state": "Mizoram"},
+    {"name": "Chief Minister's Scholarship Scheme", "state": "Nagaland"},
+    {"name": "KALIA Scheme", "state": "Odisha"},
+    {"name": "Mukhyamantri Krushi Udyog Yojana", "state": "Odisha"},
+    {"name": "Aahar Scheme", "state": "Odisha"},
+    {"name": "Mukhyamantri Mahila Sashaktikaran Abhiyan", "state": "Odisha"},
+    {"name": "Mukhyamantri Chiranjeevi Swasthya Bima Yojana", "state": "Punjab"},
+    {"name": "Ghar Ghar Rozgar Yojana", "state": "Punjab"},
+    {"name": "Mukhyamantri Raahat Yojana", "state": "Punjab"},
+    {"name": "Mukhyamantri Rajshri Yojana", "state": "Rajasthan"},
+    {"name": "Mukhyamantri Jal Swavlamban Abhiyan", "state": "Rajasthan"},
+    {"name": "Mukhyamantri Yuva Vikas Prashikshan Yojana", "state": "Rajasthan"},
+    {"name": "Mukhyamantri Nishulk Dava Yojana", "state": "Rajasthan"},
+    {"name": "Sikkim Krishi Utpadan Yojana", "state": "Sikkim"},
+    {"name": "Chief Minister's Meritorious Scholarship Scheme", "state": "Sikkim"},
+    {"name": "Mudra Loan Scheme", "state": "Tamil Nadu"},
+    {"name": "Mukhyamantri Unavinilai Thittam", "state": "Tamil Nadu"},
+    {"name": "Mukhyamantri Magalir Urimai Thittam", "state": "Tamil Nadu"},
+    {"name": "Mukhyamantri Illam Thedi Kalvi Scheme", "state": "Tamil Nadu"},
+    {"name": "KCR Kit Scheme", "state": "Telangana"},
+    {"name": "Arogya Lakshmi Scheme", "state": "Telangana"},
+    {"name": "Mukhyamantri Mahila Abhyudaya Yojana", "state": "Telangana"},
+    {"name": "Mukhyamantri Samuhik Vivah Yojana", "state": "Tripura"},
+    {"name": "Mukhyamantri Yuba Abhyudaya Yojana", "state": "Tripura"},
+    {"name": "Mukhyamantri Kisan Yojana", "state": "Uttarakhand"},
+    {"name": "Mukhyamantri Kisan Durghatna Bima Yojana", "state": "Uttar Pradesh"},
+    {"name": "Mukhyamantri Yuva Swarojgar Yojana", "state": "Uttar Pradesh"},
+    {"name": "Mukhyamantri Mahila Samarthya Yojana", "state": "Uttar Pradesh"},
+    {"name": "Mukhyamantri Samajik Suraksha Yojana", "state": "West Bengal"},
+    {"name": "Mukhyamantri Karma Sathi Prakalpa", "state": "West Bengal"},
+    {"name": "Delhi Annashree Yojana", "state": "Delhi"},
+  ]
 
 def load_env():
     env_vars = {}
@@ -306,6 +399,80 @@ def query_deepseek_batch(batch_schemes, api_key):
         print(f"DeepSeek batch query failed: {e}")
         return None
 
+def query_groq_batch(batch_schemes, api_key):
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    
+    prompt = f"""
+    You are an expert on Indian Government welfare schemes, SEO content editor, and parser.
+    Generate details for the following {len(batch_schemes)} government schemes:
+    {json.dumps(batch_schemes, indent=2)}
+
+    Generate a JSON object with key "schemes" containing a list of scheme objects.
+    Each scheme object must have the following keys:
+    - "title": The official scheme name (e.g. "Pradhan Mantri Ujjwala Yojana (PMUY)")
+    - "department": The conducting ministry/department (e.g. "Ministry of Petroleum and Natural Gas")
+    - "category": Must be exactly "Govt Schemes"
+    - "state": The state name (e.g. "West Bengal") or null for Central/All-India schemes
+    - "district": null
+    - "block": null
+    - "municipality": null
+    - "overview": A concise 2-3 sentence summary of the scheme, its goal, and main benefits.
+    - "eligibility": A clear summary of eligibility criteria (e.g. "Families below the poverty line (BPL), SC/ST households, women members of the family.")
+    - "age_limit": The age criteria for beneficiaries (e.g. "Minimum 18 years" or "N/A")
+    - "salary": Details of financial benefit/welfare (e.g. "Free LPG connection with financial assistance of Rs. 1,600 per connection" or "Rs. 6000 per year")
+    - "start_date": "2016-05-01" (The official launch date or a representative date in YYYY-MM-DD format)
+    - "end_date": null
+    - "exam_date": null
+    - "how_to_apply": Step by step application instructions.
+    - "apply_link": The official website link for registration/details (e.g. "https://www.pmuy.gov.in")
+    - "official_pdf_link": A valid guide/PDF link or null
+    - "content": Detailed markdown guide covering benefits, documents required, and step-by-step registration. Use headings like "### Benefits", "### Documents Required", "### How to Apply".
+    """
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    
+    body = {
+        "model": "llama-3.3-70b-versatile",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.1,
+        "response_format": {"type": "json_object"}
+    }
+    
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(body).encode("utf-8"),
+        headers=headers,
+        method="POST"
+    )
+    
+    try:
+        print(f"Querying Groq API for batch of {len(batch_schemes)} schemes...")
+        with urllib.request.urlopen(req, timeout=60) as response:
+            res = json.loads(response.read().decode("utf-8"))
+            content = res['choices'][0]['message']['content'].strip()
+            
+            # Clean markdown code blocks if model wrapped it
+            if "```json" in content:
+                content = content.split("```json")[1].split("```")[0].strip()
+            elif "```" in content:
+                content = content.split("```")[1].split("```")[0].strip()
+                
+            parsed = json.loads(content)
+            if isinstance(parsed, dict):
+                for k, v in parsed.items():
+                    if isinstance(v, list):
+                        return v
+            return parsed
+    except Exception as e:
+        print(f"Groq batch query failed: {e}")
+        return None
+
 def upsert_to_supabase(scheme, supabase_url, service_key):
     title = scheme.get("title", "")
     slug = make_slug(title)
@@ -367,6 +534,7 @@ def main():
     service_key = (env.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or "").strip()
     gemini_key = (env.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY") or "").strip()
     deepseek_key = (env.get("DEEPSEEK_API_KEY") or os.environ.get("DEEPSEEK_API_KEY") or "").strip()
+    groq_key = (env.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY") or "").strip()
 
     local_db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'jobs_db.json')
     
@@ -405,16 +573,23 @@ def main():
         
         parsed_batch = None
         
-        # Try Gemini first
-        if gemini_key:
+        # Try Groq first
+        if groq_key:
+            parsed_batch = query_groq_batch(batch, groq_key)
+            if parsed_batch:
+                time.sleep(2)
+        
+        # Fallback to Gemini if Groq fails
+        if not parsed_batch and gemini_key:
+            print("Groq batch query failed/unavailable. Falling back to Gemini...")
             parsed_batch = query_gemini_batch(batch, gemini_key)
             if parsed_batch:
                 print("Sleeping 10 seconds to respect Gemini API rate limits...")
                 time.sleep(10)
         
-        # Fallback to DeepSeek if Gemini fails
+        # Fallback to DeepSeek if both fail
         if not parsed_batch and deepseek_key:
-            print("Gemini batch query failed/unavailable. Falling back to DeepSeek...")
+            print("Gemini/Groq batch queries failed/unavailable. Falling back to DeepSeek...")
             parsed_batch = query_deepseek_batch(batch, deepseek_key)
             if parsed_batch:
                 time.sleep(2)
