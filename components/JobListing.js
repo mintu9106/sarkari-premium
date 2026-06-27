@@ -186,75 +186,107 @@ export default function JobListing({ initialJobs = [], categoryType = 'Jobs', ti
       </div>
 
       {/* Listing Grid */}
-      <div className="bg-[var(--card-bg)] rounded-2xl border border-[var(--border-color)] overflow-hidden shadow-sm divide-y divide-[var(--border-color)]">
-        {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => {
+      {filteredJobs.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredJobs.map((job) => {
             const expired = !isActive(job);
+            
+            // Determine hover highlights based on category
+            const hoverTextClass = 
+              categoryType === 'Admit Cards' 
+                ? 'group-hover:text-blue-500 dark:group-hover:text-blue-400' 
+                : categoryType === 'Results' 
+                  ? 'group-hover:text-emerald-500 dark:group-hover:text-emerald-400' 
+                  : 'group-hover:text-amber-500 dark:group-hover:text-amber-400';
+
+            const activeBgClass = 
+              categoryType === 'Admit Cards' 
+                ? 'bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 border border-blue-500/10' 
+                : categoryType === 'Results' 
+                  ? 'bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/10' 
+                  : 'bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400 border border-green-500/10';
+
             return (
               <Link
                 key={job.id}
                 href={getJobUrl(job.category, job.slug)}
-                className="block p-6 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all group"
+                className="bg-[var(--card-bg)] border border-[var(--border-color)] rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                  <h2 className="font-extrabold text-sm text-gray-900 dark:text-white group-hover:text-amber-500 transition-colors flex-1">
-                    <TranslateText text={job.title} />
-                  </h2>
-
-                  {/* Status Badge */}
-                  {categoryType === 'Jobs' && (
-                    <span
-                      className={`self-start sm:self-auto text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider ${
-                        expired
-                          ? 'bg-red-50 dark:bg-red-950/20 text-red-650 dark:text-red-400 border border-red-500/10'
-                          : 'bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400 border border-green-500/10'
-                      }`}
-                    >
-                      <TranslateText text={expired ? 'Expired' : 'Active'} />
+                <div className="space-y-4">
+                  {/* Top Badge & Label Row */}
+                  <div className="flex justify-between items-center text-[10px] font-extrabold uppercase tracking-wide">
+                    <span className="text-gray-400 truncate max-w-[150px]">
+                      <TranslateText text={job.department} />
                     </span>
+                    {categoryType === 'Jobs' ? (
+                      <span
+                        className={`px-2 py-0.5 rounded-[4px] shrink-0 font-extrabold uppercase tracking-wider ${
+                          expired
+                            ? 'bg-red-50 dark:bg-red-950/20 text-red-650 dark:text-red-400 border border-red-500/10'
+                            : 'bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400 border border-green-500/10'
+                        }`}
+                      >
+                        <TranslateText text={expired ? 'Expired' : 'Active'} />
+                      </span>
+                    ) : (
+                      <span
+                        className={`px-2 py-0.5 rounded-[4px] shrink-0 font-extrabold uppercase tracking-wider ${activeBgClass}`}
+                      >
+                        <TranslateText text={categoryType === 'Admit Cards' ? 'Released' : 'Declared'} />
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className={`font-extrabold text-sm text-gray-900 dark:text-white leading-snug transition-colors line-clamp-2 ${hoverTextClass}`}>
+                    <TranslateText text={job.title} />
+                  </h3>
+
+                  {/* Overview excerpt */}
+                  <p className="text-xs leading-relaxed text-gray-550 dark:text-gray-400 line-clamp-3">
+                    <TranslateText text={job.overview ? job.overview.substring(0, 160) + '...' : ''} />
+                  </p>
+
+                  {/* Meta Tags (State badge, etc) */}
+                  {job.state && (
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      <span className="bg-slate-150 dark:bg-slate-800/60 text-slate-655 dark:text-slate-350 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
+                        <TranslateText text={job.state} />
+                      </span>
+                    </div>
                   )}
                 </div>
 
-                <p className="text-xs text-gray-505 dark:text-gray-400 mt-1 max-w-3xl leading-relaxed">
-                  <TranslateText text={job.overview ? job.overview.substring(0, 160) + '...' : ''} />
-                </p>
-
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-3 text-[10px] text-gray-400">
-                  <span className="font-semibold text-gray-500">
-                    <TranslateText text={job.department} />
-                  </span>
-                  <span>•</span>
-                  {categoryType === 'Jobs' ? (
-                    <span className={expired ? 'text-red-600 dark:text-red-400 font-medium' : 'text-gray-400'}>
-                      <TranslateText text="Apply Before" />: {job.important_dates?.end_date || 'N/A'}
-                    </span>
-                  ) : categoryType === 'Admit Cards' ? (
-                    <span>
-                      <TranslateText text="Release Date" />: {job.important_dates?.start_date || 'N/A'}
-                    </span>
-                  ) : (
-                    <span>
-                      <TranslateText text="Declared Date" />: {job.important_dates?.start_date || 'N/A'}
-                    </span>
-                  )}
-                  {job.state && (
-                    <>
-                      <span>•</span>
-                      <span className="bg-slate-100 dark:bg-slate-800 text-slate-655 dark:text-slate-350 px-1.5 py-0.5 rounded">
-                        <TranslateText text={job.state} />
+                {/* Footer Dates Info Block */}
+                <div className="flex items-center gap-2 mt-5 pt-4 border-t border-[var(--border-color)] text-[10px] text-gray-400">
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>
+                    {categoryType === 'Jobs' ? (
+                      <span className={expired ? 'text-red-500 dark:text-red-400 font-semibold' : ''}>
+                        <TranslateText text="Apply Before" />: {job.important_dates?.end_date || 'N/A'}
                       </span>
-                    </>
-                  )}
+                    ) : categoryType === 'Admit Cards' ? (
+                      <span>
+                        <TranslateText text="Release Date" />: {job.important_dates?.start_date || 'N/A'}
+                      </span>
+                    ) : (
+                      <span>
+                        <TranslateText text="Declared Date" />: {job.important_dates?.start_date || 'N/A'}
+                      </span>
+                    )}
+                  </span>
                 </div>
               </Link>
             );
-          })
-        ) : (
-          <div className="p-12 text-center text-sm text-gray-500">
-            <TranslateText text="No matches found for your search filters." />
-          </div>
-        )}
-      </div>
+          })}
+        </div>
+      ) : (
+        <div className="py-16 text-center text-sm text-gray-500 border border-dashed border-[var(--border-color)] rounded-2xl">
+          <TranslateText text="No matches found for your search filters." />
+        </div>
+      )}
     </div>
   );
 }
